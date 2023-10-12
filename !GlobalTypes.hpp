@@ -24493,11 +24493,11 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x520
+// Size: 0x538
 class CCSGOPlayerAnimGraphState
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0x520]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x538]; // 0x0
 public:
 	// No members available
 };

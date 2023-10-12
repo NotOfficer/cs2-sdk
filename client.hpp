@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: client.dll
-// Classes count: 406
+// Classes count: 407
 // Enums count: 8
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -2958,8 +2958,8 @@ public:
 	int16_t m_nDMBonusWeaponLoadoutSlot; // 0x3c	
 };
 
-// Alignment: 100
-// Size: 0x1e78
+// Alignment: 101
+// Size: 0x4ec8
 class C_CSGameRules : public C_TeamplayRules
 {
 public:
@@ -3085,8 +3085,10 @@ public:
 	bool m_bIsDroppingItems; // 0x8b8	
 	// MNetworkEnable
 	bool m_bIsQuestEligible; // 0x8b9	
+	// MNetworkEnable
+	bool m_bIsHltvActive; // 0x8ba	
 private:
-	[[maybe_unused]] uint8_t __pad08ba[0x2]; // 0x8ba
+	[[maybe_unused]] uint8_t __pad08bb[0x1]; // 0x8bb
 public:
 	// MNetworkEnable
 	int32_t m_nGuardianModeWaveNumber; // 0x8bc	
@@ -3201,9 +3203,9 @@ public:
 	// MNetworkChangeCallback "OnTeamIntroPeriodChanged"
 	bool m_bTeamIntroPeriod; // 0xeb4	
 private:
-	[[maybe_unused]] uint8_t __pad0eb5[0xfbb]; // 0xeb5
+	[[maybe_unused]] uint8_t __pad0eb5[0x400b]; // 0xeb5
 public:
-	double m_flLastPerfSampleTime; // 0x1e70	
+	double m_flLastPerfSampleTime; // 0x4ec0	
 };
 
 // Alignment: 13
@@ -3262,8 +3264,8 @@ public:
 	int32_t m_iEnemy3Ks; // 0x70	
 };
 
-// Alignment: 6
-// Size: 0x9e0
+// Alignment: 8
+// Size: 0x1270
 class C_CSGO_TeamPreviewCharacterPosition : public C_BaseEntity
 {
 public:
@@ -3281,11 +3283,15 @@ public:
 	// MNetworkEnable
 	uint64_t m_xuid; // 0x558	
 	// MNetworkEnable
-	C_EconItemView m_weaponItem; // 0x560	
+	C_EconItemView m_agentItem; // 0x560	
+	// MNetworkEnable
+	C_EconItemView m_glovesItem; // 0x9a8	
+	// MNetworkEnable
+	C_EconItemView m_weaponItem; // 0xdf0	
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamSelectCharacterPosition : public C_CSGO_TeamPreviewCharacterPosition
 {
 public:
@@ -3293,7 +3299,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamSelectTerroristPosition : public C_CSGO_TeamSelectCharacterPosition
 {
 public:
@@ -3301,7 +3307,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamSelectCounterTerroristPosition : public C_CSGO_TeamSelectCharacterPosition
 {
 public:
@@ -3309,7 +3315,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamIntroCharacterPosition : public C_CSGO_TeamPreviewCharacterPosition
 {
 public:
@@ -3317,7 +3323,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamIntroTerroristPosition : public C_CSGO_TeamIntroCharacterPosition
 {
 public:
@@ -3325,7 +3331,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_TeamIntroCounterTerroristPosition : public C_CSGO_TeamIntroCharacterPosition
 {
 public:
@@ -3333,7 +3339,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class CCSGO_WingmanIntroCharacterPosition : public C_CSGO_TeamIntroCharacterPosition
 {
 public:
@@ -3341,7 +3347,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class CCSGO_WingmanIntroTerroristPosition : public CCSGO_WingmanIntroCharacterPosition
 {
 public:
@@ -3349,7 +3355,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class CCSGO_WingmanIntroCounterTerroristPosition : public CCSGO_WingmanIntroCharacterPosition
 {
 public:
@@ -3820,8 +3826,20 @@ public:
 	int32_t m_nPreviousAccount; // 0x50	
 };
 
-// Alignment: 8
-// Size: 0x110
+// Alignment: 3
+// Size: 0x30
+struct ServerAuthoritativeWeaponSlot_t
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x28]; // 0x0
+public:
+	uint16_t unClass; // 0x28	
+	uint16_t unSlot; // 0x2a	
+	uint16_t unItemDefIdx; // 0x2c	
+};
+
+// Alignment: 7
+// Size: 0xc0
 class CCSPlayerController_InventoryServices : public CPlayerControllerComponent
 {
 public:
@@ -3844,11 +3862,8 @@ private:
 	[[maybe_unused]] uint8_t __pad006c[0x4]; // 0x6c
 public:
 	// MNetworkEnable
-	// MNetworkChangeCallback "OnTerroristLoadoutCacheChanged"
-	C_UtlVectorEmbeddedNetworkVar<C_EconItemView> m_vecTerroristLoadoutCache; // 0x70	
-	// MNetworkEnable
-	// MNetworkChangeCallback "OnCounterTerroristLoadoutCacheChanged"
-	C_UtlVectorEmbeddedNetworkVar<C_EconItemView> m_vecCounterTerroristLoadoutCache; // 0xc0	
+	// MNetworkUserGroup "LocalPlayerExclusive"
+	C_UtlVectorEmbeddedNetworkVar<ServerAuthoritativeWeaponSlot_t> m_vecServerAuthoritativeWeaponSlots; // 0x70	
 };
 
 // Alignment: 13
@@ -4556,7 +4571,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x9e0
+// Size: 0x1270
 class C_CSGO_EndOfMatchCharacterPosition : public C_CSGO_TeamPreviewCharacterPosition
 {
 public:
@@ -6866,7 +6881,7 @@ public:
 };
 
 // Alignment: 57
-// Size: 0x848
+// Size: 0x808
 class CCSPlayerController : public CBasePlayerController
 {
 private:
@@ -6938,81 +6953,90 @@ public:
 	// MNetworkEnable
 	int32_t m_nEndMatchNextMapVote; // 0x758	
 	// MNetworkEnable
+	// MNetworkUserGroup "LocalPlayerExclusive"
 	uint16_t m_unActiveQuestId; // 0x75c	
 private:
 	[[maybe_unused]] uint8_t __pad075e[0x2]; // 0x75e
 public:
 	// MNetworkEnable
+	// MNetworkUserGroup "LocalPlayerExclusive"
 	QuestProgress::Reason m_nQuestProgressReason; // 0x760	
 	// MNetworkEnable
+	// MNetworkUserGroup "LocalPlayerExclusive"
 	uint32_t m_unPlayerTvControlFlags; // 0x764	
 private:
-	[[maybe_unused]] uint8_t __pad0768[0x68]; // 0x768
+	[[maybe_unused]] uint8_t __pad0768[0x28]; // 0x768
 public:
-	int32_t m_iDraftIndex; // 0x7d0	
-	uint32_t m_msQueuedModeDisconnectionTimestamp; // 0x7d4	
-	uint32_t m_uiAbandonRecordedReason; // 0x7d8	
-	bool m_bEverFullyConnected; // 0x7dc	
-	bool m_bAbandonAllowsSurrender; // 0x7dd	
-	bool m_bAbandonOffersInstantSurrender; // 0x7de	
-	bool m_bDisconnection1MinWarningPrinted; // 0x7df	
-	bool m_bScoreReported; // 0x7e0	
+	int32_t m_iDraftIndex; // 0x790	
+	uint32_t m_msQueuedModeDisconnectionTimestamp; // 0x794	
+	uint32_t m_uiAbandonRecordedReason; // 0x798	
+	bool m_bEverFullyConnected; // 0x79c	
+	bool m_bAbandonAllowsSurrender; // 0x79d	
+	bool m_bAbandonOffersInstantSurrender; // 0x79e	
+	bool m_bDisconnection1MinWarningPrinted; // 0x79f	
+	bool m_bScoreReported; // 0x7a0	
 private:
-	[[maybe_unused]] uint8_t __pad07e1[0x3]; // 0x7e1
+	[[maybe_unused]] uint8_t __pad07a1[0x3]; // 0x7a1
 public:
 	// MNetworkEnable
-	int32_t m_nDisconnectionTick; // 0x7e4	
+	// MNetworkUserGroup "LocalPlayerExclusive"
+	int32_t m_nDisconnectionTick; // 0x7a4	
 private:
-	[[maybe_unused]] uint8_t __pad07e8[0x8]; // 0x7e8
+	[[maybe_unused]] uint8_t __pad07a8[0x8]; // 0x7a8
 public:
 	// MNetworkEnable
-	bool m_bControllingBot; // 0x7f0	
+	bool m_bControllingBot; // 0x7b0	
 	// MNetworkEnable
-	bool m_bHasControlledBotThisRound; // 0x7f1	
-	bool m_bHasBeenControlledByPlayerThisRound; // 0x7f2	
+	bool m_bHasControlledBotThisRound; // 0x7b1	
+	bool m_bHasBeenControlledByPlayerThisRound; // 0x7b2	
 private:
-	[[maybe_unused]] uint8_t __pad07f3[0x1]; // 0x7f3
+	[[maybe_unused]] uint8_t __pad07b3[0x1]; // 0x7b3
 public:
-	int32_t m_nBotsControlledThisRound; // 0x7f4	
+	int32_t m_nBotsControlledThisRound; // 0x7b4	
 	// MNetworkEnable
-	bool m_bCanControlObservedBot; // 0x7f8	
+	// MNetworkUserGroup "LocalPlayerExclusive"
+	bool m_bCanControlObservedBot; // 0x7b8	
 private:
-	[[maybe_unused]] uint8_t __pad07f9[0x3]; // 0x7f9
+	[[maybe_unused]] uint8_t __pad07b9[0x3]; // 0x7b9
 public:
 	// MNetworkEnable
-	CHandle<C_CSPlayerPawn> m_hPlayerPawn; // 0x7fc	
+	CHandle<C_CSPlayerPawn> m_hPlayerPawn; // 0x7bc	
 	// MNetworkEnable
-	CHandle<C_CSObserverPawn> m_hObserverPawn; // 0x800	
+	CHandle<C_CSObserverPawn> m_hObserverPawn; // 0x7c0	
 	// MNetworkEnable
-	bool m_bPawnIsAlive; // 0x804	
+	bool m_bPawnIsAlive; // 0x7c4	
 private:
-	[[maybe_unused]] uint8_t __pad0805[0x3]; // 0x805
+	[[maybe_unused]] uint8_t __pad07c5[0x3]; // 0x7c5
 public:
 	// MNetworkEnable
-	uint32_t m_iPawnHealth; // 0x808	
+	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
+	uint32_t m_iPawnHealth; // 0x7c8	
 	// MNetworkEnable
-	int32_t m_iPawnArmor; // 0x80c	
+	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
+	int32_t m_iPawnArmor; // 0x7cc	
 	// MNetworkEnable
-	bool m_bPawnHasDefuser; // 0x810	
+	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
+	bool m_bPawnHasDefuser; // 0x7d0	
 	// MNetworkEnable
-	bool m_bPawnHasHelmet; // 0x811	
+	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
+	bool m_bPawnHasHelmet; // 0x7d1	
 	// MNetworkEnable
-	uint16_t m_nPawnCharacterDefIndex; // 0x812	
+	uint16_t m_nPawnCharacterDefIndex; // 0x7d2	
 	// MNetworkEnable
-	int32_t m_iPawnLifetimeStart; // 0x814	
+	int32_t m_iPawnLifetimeStart; // 0x7d4	
 	// MNetworkEnable
-	int32_t m_iPawnLifetimeEnd; // 0x818	
+	int32_t m_iPawnLifetimeEnd; // 0x7d8	
 	// MNetworkEnable
-	int32_t m_iPawnBotDifficulty; // 0x81c	
+	int32_t m_iPawnBotDifficulty; // 0x7dc	
 	// MNetworkEnable
-	CHandle<CCSPlayerController> m_hOriginalControllerOfCurrentPawn; // 0x820	
+	CHandle<CCSPlayerController> m_hOriginalControllerOfCurrentPawn; // 0x7e0	
 	// MNetworkEnable
-	int32_t m_iScore; // 0x824	
+	int32_t m_iScore; // 0x7e4	
 	// MNetworkEnable
-	C_NetworkUtlVectorBase<EKillTypes_t> m_vecKills; // 0x828	
+	C_NetworkUtlVectorBase<EKillTypes_t> m_vecKills; // 0x7e8	
 	// MNetworkEnable
-	int32_t m_iMVPs; // 0x840	
-	bool m_bIsPlayerNameDirty; // 0x844	
+	int32_t m_iMVPs; // 0x800	
+	bool m_bIsPlayerNameDirty; // 0x804	
 };
 
 // Alignment: 2
@@ -9752,8 +9776,8 @@ public:
 	CEntityHandle m_hDetectParentChange; // 0x16a0	
 };
 
-// Alignment: 49
-// Size: 0x22a8
+// Alignment: 50
+// Size: 0x22c8
 class C_CSPlayerPawn : public C_CSPlayerPawnBase
 {
 public:
@@ -9871,19 +9895,20 @@ public:
 	// MNetworkEnable
 	bool m_bRagdollDamageHeadshot; // 0x1d50	
 private:
-	[[maybe_unused]] uint8_t __pad1d51[0x527]; // 0x1d51
+	[[maybe_unused]] uint8_t __pad1d51[0x53f]; // 0x1d51
 public:
-	bool m_bLastHeadBoneTransformIsValid; // 0x2278	
+	bool m_bLastHeadBoneTransformIsValid; // 0x2290	
 private:
-	[[maybe_unused]] uint8_t __pad2279[0x3]; // 0x2279
+	[[maybe_unused]] uint8_t __pad2291[0x3]; // 0x2291
 public:
-	GameTime_t m_lastLandTime; // 0x227c	
+	GameTime_t m_lastLandTime; // 0x2294	
+	bool m_bOnGroundLastTick; // 0x2298	
 private:
-	[[maybe_unused]] uint8_t __pad2280[0x18]; // 0x2280
+	[[maybe_unused]] uint8_t __pad2299[0x1b]; // 0x2299
 public:
 	// MNetworkEnable
-	QAngle m_qDeathEyeAngles; // 0x2298	
-	bool m_bSkipOneHeadConstraintUpdate; // 0x22a4	
+	QAngle m_qDeathEyeAngles; // 0x22b4	
+	bool m_bSkipOneHeadConstraintUpdate; // 0x22c0	
 };
 
 // Alignment: 23
@@ -10199,17 +10224,17 @@ public:
 };
 
 // Alignment: 3
-// Size: 0x2340
+// Size: 0x2360
 class C_CSGO_PreviewPlayer : public C_CSPlayerPawn
 {
 public:
-	CUtlString m_animgraph; // 0x22a8	
-	CUtlString m_animgraphCharacterModeString; // 0x22b0	
-	float m_flInitialModelScale; // 0x22b8	
+	CUtlString m_animgraph; // 0x22c8	
+	CUtlString m_animgraphCharacterModeString; // 0x22d0	
+	float m_flInitialModelScale; // 0x22d8	
 };
 
 // Alignment: 0
-// Size: 0x2340
+// Size: 0x2360
 class C_CSGO_PreviewPlayerAlias_csgo_player_previewmodel : public C_CSGO_PreviewPlayer
 {
 public:
@@ -10217,7 +10242,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x2340
+// Size: 0x2360
 class C_CSGO_TeamPreviewModel : public C_CSGO_PreviewPlayer
 {
 public:
