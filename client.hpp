@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: client.dll
-// Classes count: 408
+// Classes count: 409
 // Enums count: 8
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -3678,7 +3678,7 @@ public:
 };
 
 // Alignment: 3
-// Size: 0xb0
+// Size: 0x440
 class CCSPlayer_WeaponServices : public CPlayer_WeaponServices
 {
 public:
@@ -7262,7 +7262,7 @@ public:
 	static int32_t &Get_s_nColorIdx(){return *reinterpret_cast<int32_t*>(interfaces::g_schema->FindTypeScopeForModule("client.dll")->FindDeclaredClass("CGrenadeTracer")->m_static_fields[0]->m_instance);};
 };
 
-// Alignment: 23
+// Alignment: 19
 // Size: -0x7d60
 class C_Inferno : public C_BaseModelEntity
 {
@@ -7271,17 +7271,9 @@ private:
 public:
 	ParticleIndex_t m_nfxFireDamageEffect; // 0xd00	
 	// MNetworkEnable
-	int32_t m_fireXDelta[64]; // 0xd04	
+	Vector m_firePositions[64]; // 0xd04	
 	// MNetworkEnable
-	int32_t m_fireYDelta[64]; // 0xe04	
-	// MNetworkEnable
-	int32_t m_fireZDelta[64]; // 0xf04	
-	// MNetworkEnable
-	int32_t m_fireParentXDelta[64]; // 0x1004	
-	// MNetworkEnable
-	int32_t m_fireParentYDelta[64]; // 0x1104	
-	// MNetworkEnable
-	int32_t m_fireParentZDelta[64]; // 0x1204	
+	Vector m_fireParentPositions[64]; // 0x1004	
 	// MNetworkEnable
 	bool m_bFireIsBurning[64]; // 0x1304	
 	// MNetworkEnable
@@ -8826,6 +8818,14 @@ public:
 
 // Alignment: 0
 // Size: 0x10f0
+class C_HEGrenadeProjectile : public C_BaseCSGrenadeProjectile
+{
+public:
+	// No members available
+};
+
+// Alignment: 0
+// Size: 0x10f0
 class C_FlashbangProjectile : public C_BaseCSGrenadeProjectile
 {
 public:
@@ -9103,45 +9103,45 @@ public:
 	int32_t m_iOriginalTeamNumber; // 0x16a0	
 	float m_flNextAttackRenderTimeOffset; // 0x16a4	
 private:
-	[[maybe_unused]] uint8_t __pad16a8[0x78]; // 0x16a8
+	[[maybe_unused]] uint8_t __pad16a8[0x80]; // 0x16a8
 public:
-	bool m_bVisualsDataSet; // 0x1720	
-	bool m_bOldFirstPersonSpectatedState; // 0x1721	
+	bool m_bVisualsDataSet; // 0x1728	
+	bool m_bOldFirstPersonSpectatedState; // 0x1729	
 private:
-	[[maybe_unused]] uint8_t __pad1722[0x2]; // 0x1722
+	[[maybe_unused]] uint8_t __pad172a[0x2]; // 0x172a
 public:
-	CHandle<C_BaseEntity> m_hOurPing; // 0x1724	
-	CEntityIndex m_nOurPingIndex; // 0x1728	
-	Vector m_vecOurPingPos; // 0x172c	
-	bool m_bGlowForPing; // 0x1738	
-	bool m_bUIWeapon; // 0x1739	
+	CHandle<C_BaseEntity> m_hOurPing; // 0x172c	
+	CEntityIndex m_nOurPingIndex; // 0x1730	
+	Vector m_vecOurPingPos; // 0x1734	
+	bool m_bGlowForPing; // 0x1740	
+	bool m_bUIWeapon; // 0x1741	
 private:
-	[[maybe_unused]] uint8_t __pad173a[0xe]; // 0x173a
-public:
-	// MNetworkEnable
-	CHandle<C_CSPlayerPawn> m_hPrevOwner; // 0x1748	
-	// MNetworkEnable
-	GameTick_t m_nDropTick; // 0x174c	
-private:
-	[[maybe_unused]] uint8_t __pad1750[0x1c]; // 0x1750
-public:
-	bool m_donated; // 0x176c	
-private:
-	[[maybe_unused]] uint8_t __pad176d[0x3]; // 0x176d
+	[[maybe_unused]] uint8_t __pad1742[0xe]; // 0x1742
 public:
 	// MNetworkEnable
-	GameTime_t m_fLastShotTime; // 0x1770	
-	bool m_bWasOwnedByCT; // 0x1774	
-	bool m_bWasOwnedByTerrorist; // 0x1775	
+	CHandle<C_CSPlayerPawn> m_hPrevOwner; // 0x1750	
+	// MNetworkEnable
+	GameTick_t m_nDropTick; // 0x1754	
 private:
-	[[maybe_unused]] uint8_t __pad1776[0x2]; // 0x1776
+	[[maybe_unused]] uint8_t __pad1758[0x1c]; // 0x1758
 public:
-	float m_gunHeat; // 0x1778	
-	uint32_t m_smokeAttachments; // 0x177c	
-	GameTime_t m_lastSmokeTime; // 0x1780	
-	float m_flLastClientFireBulletTime; // 0x1784	
+	bool m_donated; // 0x1774	
 private:
-	[[maybe_unused]] uint8_t __pad1788[0xb8]; // 0x1788
+	[[maybe_unused]] uint8_t __pad1775[0x3]; // 0x1775
+public:
+	// MNetworkEnable
+	GameTime_t m_fLastShotTime; // 0x1778	
+	bool m_bWasOwnedByCT; // 0x177c	
+	bool m_bWasOwnedByTerrorist; // 0x177d	
+private:
+	[[maybe_unused]] uint8_t __pad177e[0x2]; // 0x177e
+public:
+	float m_gunHeat; // 0x1780	
+	uint32_t m_smokeAttachments; // 0x1784	
+	GameTime_t m_lastSmokeTime; // 0x1788	
+	float m_flLastClientFireBulletTime; // 0x178c	
+private:
+	[[maybe_unused]] uint8_t __pad1790[0xb0]; // 0x1790
 public:
 	C_IronSightController m_IronSightController; // 0x1840	
 	// MNetworkEnable

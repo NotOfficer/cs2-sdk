@@ -13066,7 +13066,7 @@ public:
 	static CUtlVector< CPlayerSprayDecal* > &Get_s_arrFEPlayerDecals(){return *reinterpret_cast<CUtlVector< CPlayerSprayDecal* >*>(interfaces::g_schema->FindTypeScopeForModule("server.dll")->FindDeclaredClass("CPlayerSprayDecal")->m_static_fields[0]->m_instance);};
 };
 
-// Alignment: 28
+// Alignment: 24
 // Size: 0x1380
 class CInferno : public CBaseModelEntity
 {
@@ -13074,17 +13074,9 @@ private:
 	[[maybe_unused]] uint8_t __pad0700[0x10]; // 0x700
 public:
 	// MNetworkEnable
-	int32_t m_fireXDelta[64]; // 0x710	
+	Vector m_firePositions[64]; // 0x710	
 	// MNetworkEnable
-	int32_t m_fireYDelta[64]; // 0x810	
-	// MNetworkEnable
-	int32_t m_fireZDelta[64]; // 0x910	
-	// MNetworkEnable
-	int32_t m_fireParentXDelta[64]; // 0xa10	
-	// MNetworkEnable
-	int32_t m_fireParentYDelta[64]; // 0xb10	
-	// MNetworkEnable
-	int32_t m_fireParentZDelta[64]; // 0xc10	
+	Vector m_fireParentPositions[64]; // 0xa10	
 	// MNetworkEnable
 	bool m_bFireIsBurning[64]; // 0xd10	
 	// MNetworkEnable
@@ -15852,7 +15844,7 @@ public:
 };
 
 // Alignment: 54
-// Size: 0xdd8
+// Size: 0xde0
 class CCSWeaponBase : public CBasePlayerWeapon
 {
 private:
@@ -15947,100 +15939,100 @@ public:
 	int32_t m_iOriginalTeamNumber; // 0xd58	
 	float m_flNextAttackRenderTimeOffset; // 0xd5c	
 private:
-	[[maybe_unused]] uint8_t __pad0d60[0x8]; // 0xd60
+	[[maybe_unused]] uint8_t __pad0d60[0x10]; // 0xd60
 public:
-	bool m_bCanBePickedUp; // 0xd68	
-	bool m_bUseCanOverrideNextOwnerTouchTime; // 0xd69	
+	bool m_bCanBePickedUp; // 0xd70	
+	bool m_bUseCanOverrideNextOwnerTouchTime; // 0xd71	
 private:
-	[[maybe_unused]] uint8_t __pad0d6a[0x2]; // 0xd6a
+	[[maybe_unused]] uint8_t __pad0d72[0x2]; // 0xd72
 public:
-	GameTime_t m_nextOwnerTouchTime; // 0xd6c	
-	GameTime_t m_nextPrevOwnerTouchTime; // 0xd70	
+	GameTime_t m_nextOwnerTouchTime; // 0xd74	
+	GameTime_t m_nextPrevOwnerTouchTime; // 0xd78	
 	// MNetworkEnable
-	CHandle<CCSPlayerPawn> m_hPrevOwner; // 0xd74	
+	CHandle<CCSPlayerPawn> m_hPrevOwner; // 0xd7c	
 	// MNetworkEnable
-	GameTick_t m_nDropTick; // 0xd78	
+	GameTick_t m_nDropTick; // 0xd80	
 private:
-	[[maybe_unused]] uint8_t __pad0d7c[0x20]; // 0xd7c
+	[[maybe_unused]] uint8_t __pad0d84[0x20]; // 0xd84
 public:
-	bool m_donated; // 0xd9c	
+	bool m_donated; // 0xda4	
 private:
-	[[maybe_unused]] uint8_t __pad0d9d[0x3]; // 0xd9d
+	[[maybe_unused]] uint8_t __pad0da5[0x3]; // 0xda5
 public:
 	// MNetworkEnable
-	GameTime_t m_fLastShotTime; // 0xda0	
-	bool m_bWasOwnedByCT; // 0xda4	
-	bool m_bWasOwnedByTerrorist; // 0xda5	
-	bool m_bFiredOutOfAmmoEvent; // 0xda6	
+	GameTime_t m_fLastShotTime; // 0xda8	
+	bool m_bWasOwnedByCT; // 0xdac	
+	bool m_bWasOwnedByTerrorist; // 0xdad	
+	bool m_bFiredOutOfAmmoEvent; // 0xdae	
 private:
-	[[maybe_unused]] uint8_t __pad0da7[0x1]; // 0xda7
+	[[maybe_unused]] uint8_t __pad0daf[0x1]; // 0xdaf
 public:
-	int32_t m_numRemoveUnownedWeaponThink; // 0xda8	
+	int32_t m_numRemoveUnownedWeaponThink; // 0xdb0	
 private:
-	[[maybe_unused]] uint8_t __pad0dac[0x4]; // 0xdac
+	[[maybe_unused]] uint8_t __pad0db4[0x4]; // 0xdb4
 public:
-	CIronSightController m_IronSightController; // 0xdb0	
+	CIronSightController m_IronSightController; // 0xdb8	
 	// MNetworkEnable
-	int32_t m_iIronSightMode; // 0xdc8	
-	GameTime_t m_flLastLOSTraceFailureTime; // 0xdcc	
+	int32_t m_iIronSightMode; // 0xdd0	
+	GameTime_t m_flLastLOSTraceFailureTime; // 0xdd4	
 	// MNetworkEnable
-	int32_t m_iNumEmptyAttacks; // 0xdd0	
+	int32_t m_iNumEmptyAttacks; // 0xdd8	
 };
 
 // Alignment: 9
-// Size: 0xdf8
+// Size: 0xe00
 class CCSWeaponBaseGun : public CCSWeaponBase
 {
 public:
 	// MNetworkEnable
-	int32_t m_zoomLevel; // 0xdd8	
+	int32_t m_zoomLevel; // 0xde0	
 	// MNetworkEnable
-	int32_t m_iBurstShotsRemaining; // 0xddc	
+	int32_t m_iBurstShotsRemaining; // 0xde4	
 private:
-	[[maybe_unused]] uint8_t __pad0de0[0x8]; // 0xde0
+	[[maybe_unused]] uint8_t __pad0de8[0x8]; // 0xde8
 public:
-	int32_t m_silencedModelIndex; // 0xde8	
-	bool m_inPrecache; // 0xdec	
+	int32_t m_silencedModelIndex; // 0xdf0	
+	bool m_inPrecache; // 0xdf4	
 	// MNetworkEnable
-	bool m_bNeedsBoltAction; // 0xded	
-	bool m_bSkillReloadAvailable; // 0xdee	
-	bool m_bSkillReloadLiftedReloadKey; // 0xdef	
-	bool m_bSkillBoltInterruptAvailable; // 0xdf0	
-	bool m_bSkillBoltLiftedFireKey; // 0xdf1	
+	bool m_bNeedsBoltAction; // 0xdf5	
+	bool m_bSkillReloadAvailable; // 0xdf6	
+	bool m_bSkillReloadLiftedReloadKey; // 0xdf7	
+	bool m_bSkillBoltInterruptAvailable; // 0xdf8	
+	bool m_bSkillBoltLiftedFireKey; // 0xdf9	
 };
 
 // Alignment: 12
-// Size: 0xe28
+// Size: 0xe30
 class CC4 : public CCSWeaponBase
 {
 public:
-	Vector m_vecLastValidPlayerHeldPosition; // 0xdd8	
-	Vector m_vecLastValidDroppedPosition; // 0xde4	
-	bool m_bDoValidDroppedPositionCheck; // 0xdf0	
+	Vector m_vecLastValidPlayerHeldPosition; // 0xde0	
+	Vector m_vecLastValidDroppedPosition; // 0xdec	
+	bool m_bDoValidDroppedPositionCheck; // 0xdf8	
 	// MNetworkEnable
-	bool m_bStartedArming; // 0xdf1	
+	bool m_bStartedArming; // 0xdf9	
 private:
-	[[maybe_unused]] uint8_t __pad0df2[0x2]; // 0xdf2
+	[[maybe_unused]] uint8_t __pad0dfa[0x2]; // 0xdfa
 public:
 	// MNetworkEnable
-	GameTime_t m_fArmedTime; // 0xdf4	
+	GameTime_t m_fArmedTime; // 0xdfc	
 	// MNetworkEnable
-	bool m_bBombPlacedAnimation; // 0xdf8	
+	bool m_bBombPlacedAnimation; // 0xe00	
 	// MNetworkEnable
-	bool m_bIsPlantingViaUse; // 0xdf9	
+	bool m_bIsPlantingViaUse; // 0xe01	
 private:
-	[[maybe_unused]] uint8_t __pad0dfa[0x6]; // 0xdfa
+	[[maybe_unused]] uint8_t __pad0e02[0x6]; // 0xe02
 public:
 	// MNetworkEnable
-	EntitySpottedState_t m_entitySpottedState; // 0xe00	
-	int32_t m_nSpotRules; // 0xe18	
-	bool m_bPlayedArmingBeeps[7]; // 0xe1c	
-	bool m_bBombPlanted; // 0xe23	
-	bool m_bDroppedFromDeath; // 0xe24	
+	EntitySpottedState_t m_entitySpottedState; // 0xe08	
+	int32_t m_nSpotRules; // 0xe20	
+	bool m_bPlayedArmingBeeps[7]; // 0xe24	
+	bool m_bBombPlanted; // 0xe2b	
+	bool m_bDroppedFromDeath; // 0xe2c	
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CDEagle : public CCSWeaponBaseGun
 {
 public:
@@ -16048,7 +16040,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponElite : public CCSWeaponBaseGun
 {
 public:
@@ -16056,7 +16048,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CWeaponNOVA : public CCSWeaponBase
 {
 public:
@@ -16064,7 +16056,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CWeaponSawedoff : public CCSWeaponBase
 {
 public:
@@ -16072,16 +16064,16 @@ public:
 };
 
 // Alignment: 1
-// Size: 0xe00
+// Size: 0xe08
 class CWeaponTaser : public CCSWeaponBaseGun
 {
 public:
 	// MNetworkEnable
-	GameTime_t m_fFireTime; // 0xdf8	
+	GameTime_t m_fFireTime; // 0xe00	
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CWeaponXM1014 : public CCSWeaponBase
 {
 public:
@@ -16089,7 +16081,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CKnife : public CCSWeaponBase
 {
 public:
@@ -16097,25 +16089,25 @@ public:
 };
 
 // Alignment: 3
-// Size: 0xde8
+// Size: 0xdf0
 class CMelee : public CCSWeaponBase
 {
 public:
 	// MNetworkEnable
-	GameTime_t m_flThrowAt; // 0xdd8	
-	CHandle<CBaseEntity> m_hThrower; // 0xddc	
-	bool m_bDidThrowDamage; // 0xde0	
+	GameTime_t m_flThrowAt; // 0xde0	
+	CHandle<CBaseEntity> m_hThrower; // 0xde4	
+	bool m_bDidThrowDamage; // 0xde8	
 };
 
 // Alignment: 3
-// Size: 0xe08
+// Size: 0xe10
 class CWeaponShield : public CCSWeaponBaseGun
 {
 public:
-	float m_flBulletDamageAbsorbed; // 0xdf8	
-	GameTime_t m_flLastBulletHitSoundTime; // 0xdfc	
+	float m_flBulletDamageAbsorbed; // 0xe00	
+	GameTime_t m_flLastBulletHitSoundTime; // 0xe04	
 	// MNetworkEnable
-	float m_flDisplayHealth; // 0xe00	
+	float m_flDisplayHealth; // 0xe08	
 };
 
 // Alignment: 4
@@ -16184,45 +16176,45 @@ public:
 };
 
 // Alignment: 9
-// Size: 0xe18
+// Size: 0xe20
 class CBaseCSGrenade : public CCSWeaponBase
 {
 private:
-	[[maybe_unused]] uint8_t __pad0dd8[0x20]; // 0xdd8
+	[[maybe_unused]] uint8_t __pad0de0[0x20]; // 0xde0
 public:
 	// MNetworkEnable
-	bool m_bRedraw; // 0xdf8	
+	bool m_bRedraw; // 0xe00	
 	// MNetworkEnable
-	bool m_bIsHeldByPlayer; // 0xdf9	
+	bool m_bIsHeldByPlayer; // 0xe01	
 	// MNetworkEnable
-	bool m_bPinPulled; // 0xdfa	
+	bool m_bPinPulled; // 0xe02	
 	// MNetworkEnable
-	bool m_bJumpThrow; // 0xdfb	
+	bool m_bJumpThrow; // 0xe03	
 	// MNetworkEnable
-	EGrenadeThrowState m_eThrowStatus; // 0xdfc	
+	EGrenadeThrowState m_eThrowStatus; // 0xe04	
 	// MNetworkEnable
-	GameTime_t m_fThrowTime; // 0xe00	
+	GameTime_t m_fThrowTime; // 0xe08	
 	// MNetworkEnable
-	float m_flThrowStrength; // 0xe04	
+	float m_flThrowStrength; // 0xe0c	
 	// MNetworkEnable
-	float m_flThrowStrengthApproach; // 0xe08	
+	float m_flThrowStrengthApproach; // 0xe10	
 	// MNetworkEnable
-	GameTime_t m_fDropTime; // 0xe0c	
+	GameTime_t m_fDropTime; // 0xe14	
 };
 
 // Alignment: 2
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponBaseItem : public CCSWeaponBase
 {
 public:
 	// MNetworkEnable
-	CountdownTimer m_SequenceCompleteTimer; // 0xdd8	
+	CountdownTimer m_SequenceCompleteTimer; // 0xde0	
 	// MNetworkEnable
-	bool m_bRedraw; // 0xdf0	
+	bool m_bRedraw; // 0xdf8	
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CItem_Healthshot : public CWeaponBaseItem
 {
 public:
@@ -16230,30 +16222,30 @@ public:
 };
 
 // Alignment: 7
-// Size: 0xdf0
+// Size: 0xdf8
 class CFists : public CCSWeaponBase
 {
 public:
 	// MNetworkEnable
-	bool m_bPlayingUninterruptableAct; // 0xdd8	
-private:
-	[[maybe_unused]] uint8_t __pad0dd9[0x3]; // 0xdd9
-public:
-	// MNetworkEnable
-	// MNetworkChangeCallback "OnUninterruptChanged"
-	PlayerAnimEvent_t m_nUninterruptableActivity; // 0xddc	
-	bool m_bRestorePrevWep; // 0xde0	
+	bool m_bPlayingUninterruptableAct; // 0xde0	
 private:
 	[[maybe_unused]] uint8_t __pad0de1[0x3]; // 0xde1
 public:
-	CHandle<CBasePlayerWeapon> m_hWeaponBeforePrevious; // 0xde4	
-	CHandle<CBasePlayerWeapon> m_hWeaponPrevious; // 0xde8	
-	bool m_bDelayedHardPunchIncoming; // 0xdec	
-	bool m_bDestroyAfterTaunt; // 0xded	
+	// MNetworkEnable
+	// MNetworkChangeCallback "OnUninterruptChanged"
+	PlayerAnimEvent_t m_nUninterruptableActivity; // 0xde4	
+	bool m_bRestorePrevWep; // 0xde8	
+private:
+	[[maybe_unused]] uint8_t __pad0de9[0x3]; // 0xde9
+public:
+	CHandle<CBasePlayerWeapon> m_hWeaponBeforePrevious; // 0xdec	
+	CHandle<CBasePlayerWeapon> m_hWeaponPrevious; // 0xdf0	
+	bool m_bDelayedHardPunchIncoming; // 0xdf4	
+	bool m_bDestroyAfterTaunt; // 0xdf5	
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CSensorGrenade : public CBaseCSGrenade
 {
 public:
@@ -16261,7 +16253,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CBreachCharge : public CCSWeaponBase
 {
 public:
@@ -16269,7 +16261,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CBumpMine : public CCSWeaponBase
 {
 public:
@@ -16277,7 +16269,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdd8
+// Size: 0xde0
 class CTablet : public CCSWeaponBase
 {
 public:
@@ -16285,7 +16277,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CTripWireFire : public CBaseCSGrenade
 {
 public:
@@ -16293,7 +16285,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponZoneRepulsor : public CCSWeaponBaseGun
 {
 public:
@@ -16837,7 +16829,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CAK47 : public CCSWeaponBaseGun
 {
 public:
@@ -16845,7 +16837,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponAug : public CCSWeaponBaseGun
 {
 public:
@@ -16853,7 +16845,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponAWP : public CCSWeaponBaseGun
 {
 public:
@@ -16861,7 +16853,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponBizon : public CCSWeaponBaseGun
 {
 public:
@@ -16869,7 +16861,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponFamas : public CCSWeaponBaseGun
 {
 public:
@@ -16877,7 +16869,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponFiveSeven : public CCSWeaponBaseGun
 {
 public:
@@ -16885,7 +16877,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponG3SG1 : public CCSWeaponBaseGun
 {
 public:
@@ -16893,7 +16885,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponGalilAR : public CCSWeaponBaseGun
 {
 public:
@@ -16901,7 +16893,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponGlock : public CCSWeaponBaseGun
 {
 public:
@@ -16909,7 +16901,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponHKP2000 : public CCSWeaponBaseGun
 {
 public:
@@ -16917,7 +16909,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponM4A1 : public CCSWeaponBaseGun
 {
 public:
@@ -16925,7 +16917,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponMAC10 : public CCSWeaponBaseGun
 {
 public:
@@ -16933,7 +16925,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponMag7 : public CCSWeaponBaseGun
 {
 public:
@@ -16941,7 +16933,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponMP7 : public CCSWeaponBaseGun
 {
 public:
@@ -16949,7 +16941,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponMP9 : public CCSWeaponBaseGun
 {
 public:
@@ -16957,7 +16949,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponNegev : public CCSWeaponBaseGun
 {
 public:
@@ -16965,7 +16957,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponP250 : public CCSWeaponBaseGun
 {
 public:
@@ -16973,7 +16965,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponP90 : public CCSWeaponBaseGun
 {
 public:
@@ -16981,7 +16973,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponSCAR20 : public CCSWeaponBaseGun
 {
 public:
@@ -16989,7 +16981,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponSG556 : public CCSWeaponBaseGun
 {
 public:
@@ -16997,7 +16989,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponSSG08 : public CCSWeaponBaseGun
 {
 public:
@@ -17005,7 +16997,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponTec9 : public CCSWeaponBaseGun
 {
 public:
@@ -17013,7 +17005,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponUMP45 : public CCSWeaponBaseGun
 {
 public:
@@ -17021,7 +17013,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xdf8
+// Size: 0xe00
 class CWeaponM249 : public CCSWeaponBaseGun
 {
 public:
@@ -17029,7 +17021,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CMolotovGrenade : public CBaseCSGrenade
 {
 public:
@@ -17037,7 +17029,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CIncendiaryGrenade : public CMolotovGrenade
 {
 public:
@@ -17045,7 +17037,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CDecoyGrenade : public CBaseCSGrenade
 {
 public:
@@ -17053,7 +17045,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CFlashbang : public CBaseCSGrenade
 {
 public:
@@ -17061,7 +17053,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe18
+// Size: 0xe20
 class CHEGrenade : public CBaseCSGrenade
 {
 public:
@@ -17069,7 +17061,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0xe20
+// Size: 0xe28
 class CSmokeGrenade : public CBaseCSGrenade
 {
 public:
