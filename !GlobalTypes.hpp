@@ -5,7 +5,7 @@
 // /////////////////////////////////////////////////////////////
 // Binary: !GlobalTypes
 // Classes count: 1294
-// Enums count: 303
+// Enums count: 304
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
@@ -2314,7 +2314,7 @@ enum class ValueRemapperHapticsType_t : uint32_t
 };
 
 // Alignment: 4
-// Size: 0xe
+// Size: 0xf
 enum class TakeDamageFlags_t : uint32_t
 {
 	DFLAG_NONE = 0x0,
@@ -2331,6 +2331,7 @@ enum class TakeDamageFlags_t : uint32_t
 	DFLAG_RADIUS_DMG = 0x400,
 	DMG_LASTDFLAG = 0x400,
 	DFLAG_IGNORE_ARMOR = 0x800,
+	DFLAG_SUPPRESS_UTILREMOVE = 0x1000,
 };
 
 // Alignment: 4
@@ -3822,6 +3823,15 @@ enum class StanceType_t : uint32_t
 	STANCE_CROUCHING = 0x1,
 	STANCE_PRONE = 0x2,
 	NUM_STANCES = 0x3,
+};
+
+// Alignment: 4
+// Size: 0x3
+enum class C4LightEffect_t : uint32_t
+{
+	eLightEffectNone = 0x0,
+	eLightEffectDropped = 0x1,
+	eLightEffectThirdPersonHeld = 0x2,
 };
 
 // Alignment: 4
@@ -24501,11 +24511,11 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x538
+// Size: 0x540
 class CCSGOPlayerAnimGraphState
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0x538]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x540]; // 0x0
 public:
 	// No members available
 };
@@ -25308,12 +25318,12 @@ public:
 };
 
 // Alignment: 2
-// Size: 0x98
+// Size: 0xb0
 class C_CommandContext
 {
 public:
 	bool needsprocessing; // 0x0	
-	int32_t command_number; // 0x90	
+	int32_t command_number; // 0xa8	
 };
 
 // Alignment: 0
@@ -25516,8 +25526,8 @@ public:
 	CUtlVector<CompMatMutatorCondition_t> m_vecConditions; // 0x350	
 };
 
-// Alignment: 10
-// Size: 0x98
+// Alignment: 12
+// Size: 0xb0
 class CDecalInfo
 {
 public:
@@ -25531,12 +25541,17 @@ public:
 private:
 	[[maybe_unused]] uint8_t __pad001c[0xc]; // 0x1c
 public:
-	CDecalInfo* m_pNext; // 0x28	
-	CDecalInfo* m_pPrev; // 0x30	
+	Vector m_vPosition; // 0x28	
+	float m_flBoundingRadiusSqr; // 0x34	
 private:
-	[[maybe_unused]] uint8_t __pad0038[0x58]; // 0x38
+	[[maybe_unused]] uint8_t __pad0038[0x8]; // 0x38
 public:
-	int32_t m_nDecalMaterialIndex; // 0x90	
+	CDecalInfo* m_pNext; // 0x40	
+	CDecalInfo* m_pPrev; // 0x48	
+private:
+	[[maybe_unused]] uint8_t __pad0050[0x58]; // 0x50
+public:
+	int32_t m_nDecalMaterialIndex; // 0xa8	
 };
 
 // Alignment: 4

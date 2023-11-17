@@ -4,8 +4,8 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: server.dll
-// Classes count: 755
-// Enums count: 121
+// Classes count: 757
+// Enums count: 122
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
@@ -259,7 +259,7 @@ enum class AmmoFlags_t : uint32_t
 };
 
 // Alignment: 4
-// Size: 0xe
+// Size: 0xf
 enum class TakeDamageFlags_t : uint32_t
 {
 	DFLAG_NONE = 0x0,
@@ -276,6 +276,7 @@ enum class TakeDamageFlags_t : uint32_t
 	DFLAG_RADIUS_DMG = 0x400,
 	DMG_LASTDFLAG = 0x400,
 	DFLAG_IGNORE_ARMOR = 0x800,
+	DFLAG_SUPPRESS_UTILREMOVE = 0x1000,
 };
 
 // Alignment: 4
@@ -1642,6 +1643,15 @@ enum class CSWeaponMode : uint32_t
 	Primary_Mode = 0x0,
 	Secondary_Mode = 0x1,
 	WeaponMode_MAX = 0x2,
+};
+
+// Alignment: 4
+// Size: 0x3
+enum class C4LightEffect_t : uint32_t
+{
+	eLightEffectNone = 0x0,
+	eLightEffectDropped = 0x1,
+	eLightEffectThirdPersonHeld = 0x2,
 };
 
 // Alignment: 4
@@ -6326,12 +6336,12 @@ private:
 	[[maybe_unused]] uint8_t __pad1258[0x278]; // 0x1258
 public:
 	// MNetworkEnable
-	bool m_bMatchAbortedDueToPlayerBan; // 0x14d0	
-	bool m_bHasTriggeredRoundStartMusic; // 0x14d1	
-	bool m_bHasTriggeredCoopSpawnReset; // 0x14d2	
-	bool m_bSwitchingTeamsAtRoundReset; // 0x14d3	
+	int32_t m_nMatchAbortedEarlyReason; // 0x14d0	
+	bool m_bHasTriggeredRoundStartMusic; // 0x14d4	
+	bool m_bHasTriggeredCoopSpawnReset; // 0x14d5	
+	bool m_bSwitchingTeamsAtRoundReset; // 0x14d6	
 private:
-	[[maybe_unused]] uint8_t __pad14d4[0x1c]; // 0x14d4
+	[[maybe_unused]] uint8_t __pad14d7[0x19]; // 0x14d7
 public:
 	// MNetworkEnable
 	// MNetworkPolymorphic
@@ -6412,7 +6422,7 @@ public:
 	// MNetworkEnable
 	int32_t m_iAssists; // 0x38	
 	// MNetworkEnable
-	// MNetworkUserGroup "AllPlayersDuringFreezePeriod"
+	// MNetworkUserGroup "AllPlayersDuringFreezePeriodOrMatchEnd"
 	int32_t m_iDamage; // 0x3c	
 	// MNetworkEnable
 	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
@@ -6428,16 +6438,16 @@ public:
 	// MNetworkEnable
 	int32_t m_iHeadShotKills; // 0x50	
 	// MNetworkEnable
-	// MNetworkUserGroup "AllPlayersDuringFreezePeriod"
+	// MNetworkUserGroup "AllPlayersDuringFreezePeriodOrMatchEnd"
 	int32_t m_iObjective; // 0x54	
 	// MNetworkEnable
 	// MNetworkUserGroup "TeammateAndSpectatorExclusive"
 	int32_t m_iCashEarned; // 0x58	
 	// MNetworkEnable
-	// MNetworkUserGroup "AllPlayersDuringFreezePeriod"
+	// MNetworkUserGroup "AllPlayersDuringFreezePeriodOrMatchEnd"
 	int32_t m_iUtilityDamage; // 0x5c	
 	// MNetworkEnable
-	// MNetworkUserGroup "AllPlayersDuringFreezePeriod"
+	// MNetworkUserGroup "AllPlayersDuringFreezePeriodOrMatchEnd"
 	int32_t m_iEnemiesFlashed; // 0x60	
 };
 
@@ -6577,11 +6587,11 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x538
+// Size: 0x540
 class CCSGOPlayerAnimGraphState
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0x538]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x540]; // 0x0
 public:
 	// No members available
 };
@@ -7337,6 +7347,22 @@ private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
 	// No members available
+};
+
+// Alignment: 4
+// Size: 0x4f8
+class CLogicEventListener : public CLogicalEntity
+{
+private:
+	[[maybe_unused]] uint8_t __pad04b0[0x10]; // 0x4b0
+public:
+	CUtlString m_strEventName; // 0x4c0	
+	bool m_bIsEnabled; // 0x4c8	
+private:
+	[[maybe_unused]] uint8_t __pad04c9[0x3]; // 0x4c9
+public:
+	int32_t m_nTeam; // 0x4cc	
+	CEntityIOOutput m_OnEventFired; // 0x4d0	
 };
 
 // Alignment: 13
@@ -12609,8 +12635,8 @@ public:
 	// No members available
 };
 
-// Alignment: 78
-// Size: -0x710
+// Alignment: 80
+// Size: -0x700
 class CCSPlayerController : public CBasePlayerController
 {
 private:
@@ -12795,7 +12821,12 @@ public:
 	bool m_bPunishForTeamKill; // 0xf8e9	
 	bool m_bGaveTeamDamageWarning; // 0xf8ea	
 	bool m_bGaveTeamDamageWarningThisRound; // 0xf8eb	
-	GameTime_t m_LastTeamDamageWarningTime; // 0xf8ec	
+private:
+	[[maybe_unused]] uint8_t __padf8ec[0x4]; // 0xf8ec
+public:
+	double m_dblLastReceivedPacketPlatFloatTime; // 0xf8f0	
+	GameTime_t m_LastTeamDamageWarningTime; // 0xf8f8	
+	GameTime_t m_LastTimePlayerWasDisconnectedForPawnsRemove; // 0xf8fc	
 };
 
 // Alignment: 2
@@ -13001,6 +13032,14 @@ public:
 	// No members available
 };
 
+// Alignment: 0
+// Size: 0x8a8
+class CTriggerHostageReset : public CBaseTrigger
+{
+public:
+	// No members available
+};
+
 // Alignment: 1
 // Size: 0x710
 class CCSPlace : public CServerOnlyModelEntity
@@ -13009,6 +13048,20 @@ private:
 	[[maybe_unused]] uint8_t __pad0700[0x8]; // 0x700
 public:
 	CUtlSymbolLarge m_name; // 0x708	
+};
+
+// Alignment: 4
+// Size: 0x770
+class CGameMoney : public CRulePointEntity
+{
+public:
+	CEntityIOOutput m_OnMoneySpent; // 0x710	
+	CEntityIOOutput m_OnMoneySpentFail; // 0x738	
+	int32_t m_nMoney; // 0x760	
+private:
+	[[maybe_unused]] uint8_t __pad0764[0x4]; // 0x764
+public:
+	CUtlString m_strAwardText; // 0x768	
 };
 
 // Alignment: 15
@@ -13049,20 +13102,6 @@ public:
 	
 	// Static fields:
 	static CUtlVector< CPlayerSprayDecal* > &Get_s_arrFEPlayerDecals(){return *reinterpret_cast<CUtlVector< CPlayerSprayDecal* >*>(interfaces::g_schema->FindTypeScopeForModule("server.dll")->FindDeclaredClass("CPlayerSprayDecal")->m_static_fields[0]->m_instance);};
-};
-
-// Alignment: 4
-// Size: 0x770
-class CGameMoney : public CRulePointEntity
-{
-public:
-	CEntityIOOutput m_OnMoneySpent; // 0x710	
-	CEntityIOOutput m_OnMoneySpentFail; // 0x738	
-	int32_t m_nMoney; // 0x760	
-private:
-	[[maybe_unused]] uint8_t __pad0764[0x4]; // 0x764
-public:
-	CUtlString m_strAwardText; // 0x768	
 };
 
 // Alignment: 24
@@ -15338,37 +15377,44 @@ public:
 	GameTime_t m_flLastSpinDetectionTime; // 0x98c	
 };
 
-// Alignment: 15
-// Size: 0xa30
+// Alignment: 18
+// Size: 0xa40
 class CBaseCSGrenadeProjectile : public CBaseGrenade
 {
 public:
 	// MNetworkEnable
-	Vector m_vInitialVelocity; // 0x9c8	
+	Vector m_vInitialPosition; // 0x9c8	
 	// MNetworkEnable
-	int32_t m_nBounces; // 0x9d4	
+	Vector m_vInitialVelocity; // 0x9d4	
 	// MNetworkEnable
-	CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> m_nExplodeEffectIndex; // 0x9d8	
-	// MNetworkEnable
-	int32_t m_nExplodeEffectTickBegin; // 0x9e0	
-	// MNetworkEnable
-	Vector m_vecExplodeEffectOrigin; // 0x9e4	
-	GameTime_t m_flSpawnTime; // 0x9f0	
-	uint8_t m_unOGSExtraFlags; // 0x9f4	
-	bool m_bDetonationRecorded; // 0x9f5	
+	int32_t m_nBounces; // 0x9e0	
 private:
-	[[maybe_unused]] uint8_t __pad09f6[0x2]; // 0x9f6
+	[[maybe_unused]] uint8_t __pad09e4[0x4]; // 0x9e4
 public:
-	GameTime_t m_flDetonateTime; // 0x9f8	
-	uint16_t m_nItemIndex; // 0x9fc	
+	// MNetworkEnable
+	CStrongHandle<InfoForResourceTypeIParticleSystemDefinition> m_nExplodeEffectIndex; // 0x9e8	
+	// MNetworkEnable
+	int32_t m_nExplodeEffectTickBegin; // 0x9f0	
+	// MNetworkEnable
+	Vector m_vecExplodeEffectOrigin; // 0x9f4	
+	GameTime_t m_flSpawnTime; // 0xa00	
+	uint8_t m_unOGSExtraFlags; // 0xa04	
+	bool m_bDetonationRecorded; // 0xa05	
 private:
-	[[maybe_unused]] uint8_t __pad09fe[0x2]; // 0x9fe
+	[[maybe_unused]] uint8_t __pad0a06[0x2]; // 0xa06
 public:
-	Vector m_vecOriginalSpawnLocation; // 0xa00	
-	GameTime_t m_flLastBounceSoundTime; // 0xa0c	
-	RotationVector m_vecGrenadeSpin; // 0xa10	
-	Vector m_vecLastHitSurfaceNormal; // 0xa1c	
-	int32_t m_nTicksAtZeroVelocity; // 0xa28	
+	GameTime_t m_flDetonateTime; // 0xa08	
+	uint16_t m_nItemIndex; // 0xa0c	
+private:
+	[[maybe_unused]] uint8_t __pad0a0e[0x2]; // 0xa0e
+public:
+	Vector m_vecOriginalSpawnLocation; // 0xa10	
+	GameTime_t m_flLastBounceSoundTime; // 0xa1c	
+	RotationVector m_vecGrenadeSpin; // 0xa20	
+	Vector m_vecLastHitSurfaceNormal; // 0xa2c	
+	int32_t m_nTicksAtZeroVelocity; // 0xa38	
+	bool m_bHasEverHitPlayer; // 0xa3c	
+	bool m_bClearFromPlayers; // 0xa3d	
 	
 	// Static fields:
 	static float &Get_s_flThinkInterval(){return *reinterpret_cast<float*>(interfaces::g_schema->FindTypeScopeForModule("server.dll")->FindDeclaredClass("CBaseCSGrenadeProjectile")->m_static_fields[0]->m_instance);};
@@ -15386,13 +15432,13 @@ public:
 };
 
 // Alignment: 3
-// Size: 0xa40
+// Size: 0xa50
 class CSensorGrenadeProjectile : public CBaseCSGrenadeProjectile
 {
 public:
-	GameTime_t m_fExpireTime; // 0xa30	
-	GameTime_t m_fNextDetectPlayerSound; // 0xa34	
-	CHandle<CBaseEntity> m_hDisplayGrenade; // 0xa38	
+	GameTime_t m_fExpireTime; // 0xa40	
+	GameTime_t m_fNextDetectPlayerSound; // 0xa44	
+	CHandle<CBaseEntity> m_hDisplayGrenade; // 0xa48	
 };
 
 // Alignment: 0
@@ -15420,17 +15466,17 @@ public:
 };
 
 // Alignment: 3
-// Size: 0xa38
+// Size: 0xa48
 class CFlashbangProjectile : public CBaseCSGrenadeProjectile
 {
 public:
-	float m_flTimeToDetonate; // 0xa30	
-	uint8_t m_numOpponentsHit; // 0xa34	
-	uint8_t m_numTeammatesHit; // 0xa35	
+	float m_flTimeToDetonate; // 0xa40	
+	uint8_t m_numOpponentsHit; // 0xa44	
+	uint8_t m_numTeammatesHit; // 0xa45	
 };
 
 // Alignment: 0
-// Size: 0xa30
+// Size: 0xa40
 class CHEGrenadeProjectile : public CBaseCSGrenadeProjectile
 {
 public:
@@ -16116,70 +16162,70 @@ public:
 };
 
 // Alignment: 4
-// Size: 0xb28
+// Size: 0xb38
 class CMolotovProjectile : public CBaseCSGrenadeProjectile
 {
 public:
 	// MNetworkEnable
-	bool m_bIsIncGrenade; // 0xa30	
+	bool m_bIsIncGrenade; // 0xa40	
 private:
-	[[maybe_unused]] uint8_t __pad0a31[0xb]; // 0xa31
+	[[maybe_unused]] uint8_t __pad0a41[0xb]; // 0xa41
 public:
-	bool m_bDetonated; // 0xa3c	
-private:
-	[[maybe_unused]] uint8_t __pad0a3d[0x3]; // 0xa3d
-public:
-	IntervalTimer m_stillTimer; // 0xa40	
-private:
-	[[maybe_unused]] uint8_t __pad0a50[0xd0]; // 0xa50
-public:
-	bool m_bHasBouncedOffPlayer; // 0xb20	
-};
-
-// Alignment: 4
-// Size: 0xa58
-class CDecoyProjectile : public CBaseCSGrenadeProjectile
-{
-private:
-	[[maybe_unused]] uint8_t __pad0a30[0x8]; // 0xa30
-public:
-	// MNetworkEnable
-	int32_t m_nDecoyShotTick; // 0xa38	
-	int32_t m_shotsRemaining; // 0xa3c	
-	GameTime_t m_fExpireTime; // 0xa40	
-private:
-	[[maybe_unused]] uint8_t __pad0a44[0xc]; // 0xa44
-public:
-	uint16_t m_decoyWeaponDefIndex; // 0xa50	
-};
-
-// Alignment: 8
-// Size: 0xc90
-class CSmokeGrenadeProjectile : public CBaseCSGrenadeProjectile
-{
-private:
-	[[maybe_unused]] uint8_t __pad0a30[0x18]; // 0xa30
-public:
-	// MNetworkEnable
-	int32_t m_nSmokeEffectTickBegin; // 0xa48	
-	// MNetworkEnable
-	bool m_bDidSmokeEffect; // 0xa4c	
+	bool m_bDetonated; // 0xa4c	
 private:
 	[[maybe_unused]] uint8_t __pad0a4d[0x3]; // 0xa4d
 public:
-	// MNetworkEnable
-	int32_t m_nRandomSeed; // 0xa50	
-	// MNetworkEnable
-	Vector m_vSmokeColor; // 0xa54	
-	// MNetworkEnable
-	Vector m_vSmokeDetonationPos; // 0xa60	
+	IntervalTimer m_stillTimer; // 0xa50	
 private:
-	[[maybe_unused]] uint8_t __pad0a6c[0x4]; // 0xa6c
+	[[maybe_unused]] uint8_t __pad0a60[0xd0]; // 0xa60
+public:
+	bool m_bHasBouncedOffPlayer; // 0xb30	
+};
+
+// Alignment: 4
+// Size: 0xa68
+class CDecoyProjectile : public CBaseCSGrenadeProjectile
+{
+private:
+	[[maybe_unused]] uint8_t __pad0a40[0x8]; // 0xa40
 public:
 	// MNetworkEnable
-	CUtlVector<uint8> m_VoxelFrameData; // 0xa70	
-	GameTime_t m_flLastBounce; // 0xa88	
-	GameTime_t m_fllastSimulationTime; // 0xa8c	
+	int32_t m_nDecoyShotTick; // 0xa48	
+	int32_t m_shotsRemaining; // 0xa4c	
+	GameTime_t m_fExpireTime; // 0xa50	
+private:
+	[[maybe_unused]] uint8_t __pad0a54[0xc]; // 0xa54
+public:
+	uint16_t m_decoyWeaponDefIndex; // 0xa60	
+};
+
+// Alignment: 8
+// Size: 0x2d28
+class CSmokeGrenadeProjectile : public CBaseCSGrenadeProjectile
+{
+private:
+	[[maybe_unused]] uint8_t __pad0a40[0x18]; // 0xa40
+public:
+	// MNetworkEnable
+	int32_t m_nSmokeEffectTickBegin; // 0xa58	
+	// MNetworkEnable
+	bool m_bDidSmokeEffect; // 0xa5c	
+private:
+	[[maybe_unused]] uint8_t __pad0a5d[0x3]; // 0xa5d
+public:
+	// MNetworkEnable
+	int32_t m_nRandomSeed; // 0xa60	
+	// MNetworkEnable
+	Vector m_vSmokeColor; // 0xa64	
+	// MNetworkEnable
+	Vector m_vSmokeDetonationPos; // 0xa70	
+private:
+	[[maybe_unused]] uint8_t __pad0a7c[0x4]; // 0xa7c
+public:
+	// MNetworkEnable
+	CUtlVector<uint8> m_VoxelFrameData; // 0xa80	
+	GameTime_t m_flLastBounce; // 0xa98	
+	GameTime_t m_fllastSimulationTime; // 0xa9c	
 };
 
 // Alignment: 9
@@ -16598,8 +16644,8 @@ public:
 	// No members available
 };
 
-// Alignment: 47
-// Size: 0x1f70
+// Alignment: 48
+// Size: 0x1f80
 class CCSPlayerPawn : public CCSPlayerPawnBase
 {
 public:
@@ -16629,16 +16675,17 @@ public:
 private:
 	[[maybe_unused]] uint8_t __pad15b2[0xae]; // 0x15b2
 public:
+	bool m_bInHostageResetZone; // 0x1660	
 	// MNetworkEnable
-	bool m_bInBuyZone; // 0x1660	
-	bool m_bWasInBuyZone; // 0x1661	
+	bool m_bInBuyZone; // 0x1661	
+	bool m_bWasInBuyZone; // 0x1662	
 	// MNetworkEnable
-	bool m_bInHostageRescueZone; // 0x1662	
+	bool m_bInHostageRescueZone; // 0x1663	
 	// MNetworkEnable
-	bool m_bInBombZone; // 0x1663	
-	bool m_bWasInHostageRescueZone; // 0x1664	
+	bool m_bInBombZone; // 0x1664	
+	bool m_bWasInHostageRescueZone; // 0x1665	
 private:
-	[[maybe_unused]] uint8_t __pad1665[0x3]; // 0x1665
+	[[maybe_unused]] uint8_t __pad1666[0x2]; // 0x1666
 public:
 	// MNetworkEnable
 	int32_t m_iRetakesOffering; // 0x1668	
@@ -16675,54 +16722,54 @@ public:
 	// MNetworkEnable
 	bool m_bIsBuyMenuOpen; // 0x16c0	
 private:
-	[[maybe_unused]] uint8_t __pad16c1[0x56f]; // 0x16c1
+	[[maybe_unused]] uint8_t __pad16c1[0x57f]; // 0x16c1
 public:
-	CTransform m_xLastHeadBoneTransform; // 0x1c30	
-	bool m_bLastHeadBoneTransformIsValid; // 0x1c50	
+	CTransform m_xLastHeadBoneTransform; // 0x1c40	
+	bool m_bLastHeadBoneTransformIsValid; // 0x1c60	
 private:
-	[[maybe_unused]] uint8_t __pad1c51[0x3]; // 0x1c51
+	[[maybe_unused]] uint8_t __pad1c61[0x3]; // 0x1c61
 public:
-	GameTime_t m_lastLandTime; // 0x1c54	
-	bool m_bOnGroundLastTick; // 0x1c58	
+	GameTime_t m_lastLandTime; // 0x1c64	
+	bool m_bOnGroundLastTick; // 0x1c68	
 private:
-	[[maybe_unused]] uint8_t __pad1c59[0x3]; // 0x1c59
+	[[maybe_unused]] uint8_t __pad1c69[0x3]; // 0x1c69
 public:
-	int32_t m_iPlayerLocked; // 0x1c5c	
+	int32_t m_iPlayerLocked; // 0x1c6c	
 private:
-	[[maybe_unused]] uint8_t __pad1c60[0x4]; // 0x1c60
+	[[maybe_unused]] uint8_t __pad1c70[0x4]; // 0x1c70
 public:
 	// MNetworkEnable
-	GameTime_t m_flTimeOfLastInjury; // 0x1c64	
+	GameTime_t m_flTimeOfLastInjury; // 0x1c74	
 	// MNetworkEnable
 	// MNetworkUserGroup "LocalPlayerExclusive"
-	GameTime_t m_flNextSprayDecalTime; // 0x1c68	
-	bool m_bNextSprayDecalTimeExpedited; // 0x1c6c	
+	GameTime_t m_flNextSprayDecalTime; // 0x1c78	
+	bool m_bNextSprayDecalTimeExpedited; // 0x1c7c	
 private:
-	[[maybe_unused]] uint8_t __pad1c6d[0x3]; // 0x1c6d
+	[[maybe_unused]] uint8_t __pad1c7d[0x3]; // 0x1c7d
 public:
 	// MNetworkEnable
-	int32_t m_nRagdollDamageBone; // 0x1c70	
+	int32_t m_nRagdollDamageBone; // 0x1c80	
 	// MNetworkEnable
-	Vector m_vRagdollDamageForce; // 0x1c74	
+	Vector m_vRagdollDamageForce; // 0x1c84	
 	// MNetworkEnable
-	Vector m_vRagdollDamagePosition; // 0x1c80	
+	Vector m_vRagdollDamagePosition; // 0x1c90	
 	// MNetworkEnable
-	char m_szRagdollDamageWeaponName[64]; // 0x1c8c	
+	char m_szRagdollDamageWeaponName[64]; // 0x1c9c	
 	// MNetworkEnable
-	bool m_bRagdollDamageHeadshot; // 0x1ccc	
+	bool m_bRagdollDamageHeadshot; // 0x1cdc	
 private:
-	[[maybe_unused]] uint8_t __pad1ccd[0x3]; // 0x1ccd
+	[[maybe_unused]] uint8_t __pad1cdd[0x3]; // 0x1cdd
 public:
 	// MNetworkEnable
-	Vector m_vRagdollServerOrigin; // 0x1cd0	
+	Vector m_vRagdollServerOrigin; // 0x1ce0	
 private:
-	[[maybe_unused]] uint8_t __pad1cdc[0x4]; // 0x1cdc
+	[[maybe_unused]] uint8_t __pad1cec[0x4]; // 0x1cec
 public:
 	// MNetworkEnable
-	CEconItemView m_EconGloves; // 0x1ce0	
+	CEconItemView m_EconGloves; // 0x1cf0	
 	// MNetworkEnable
-	QAngle m_qDeathEyeAngles; // 0x1f58	
-	bool m_bSkipOneHeadConstraintUpdate; // 0x1f64	
+	QAngle m_qDeathEyeAngles; // 0x1f68	
+	bool m_bSkipOneHeadConstraintUpdate; // 0x1f74	
 };
 
 // Alignment: 1
@@ -16733,8 +16780,8 @@ public:
 	CAI_Expresser* m_pExpresser; // 0x9d0	
 };
 
-// Alignment: 38
-// Size: 0x2c68
+// Alignment: 39
+// Size: 0x2c70
 class CHostage : public CHostageExpresserShim
 {
 private:
@@ -16820,10 +16867,14 @@ public:
 	int32_t m_nApproachRewardPayouts; // 0x2c3c	
 	int32_t m_nPickupEventCount; // 0x2c40	
 	Vector m_vecSpawnGroundPos; // 0x2c44	
+private:
+	[[maybe_unused]] uint8_t __pad2c50[0x14]; // 0x2c50
+public:
+	Vector m_vecHostageResetPosition; // 0x2c64	
 };
 
 // Alignment: 0
-// Size: 0x2c68
+// Size: 0x2c70
 class CHostageAlias_info_hostage_spawn : public CHostage
 {
 public:
