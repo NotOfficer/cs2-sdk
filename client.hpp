@@ -9313,7 +9313,7 @@ public:
 };
 
 // Alignment: 8
-// Size: 0x12a8
+// Size: 0x12a0
 class C_SmokeGrenadeProjectile : public C_BaseCSGrenadeProjectile
 {
 private:

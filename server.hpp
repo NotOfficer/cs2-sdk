@@ -16200,7 +16200,7 @@ public:
 };
 
 // Alignment: 8
-// Size: 0x2d28
+// Size: 0x2d20
 class CSmokeGrenadeProjectile : public CBaseCSGrenadeProjectile
 {
 private:
