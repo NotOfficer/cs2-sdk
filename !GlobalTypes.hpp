@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: !GlobalTypes
-// Classes count: 1294
+// Classes count: 1295
 // Enums count: 304
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -5009,6 +5009,15 @@ private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
 	// No members available
+};
+
+// Alignment: 2
+// Size: 0x8
+struct EventHostTimescaleChanged_t
+{
+public:
+	float m_flOldValue; // 0x0	
+	float m_flNewValue; // 0x4	
 };
 
 // Alignment: 4

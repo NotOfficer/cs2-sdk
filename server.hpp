@@ -15842,7 +15842,6 @@ private:
 	[[maybe_unused]] uint8_t __pad0a18[0x8]; // 0xa18
 public:
 	// MNetworkEnable
-	// MNetworkUserGroup "LocalPlayerExclusive"
 	CUtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t> m_ServerViewAngleChanges; // 0xa20	
 	uint32_t m_nHighestGeneratedServerViewAngleChangeIndex; // 0xa70	
 	QAngle v_angle; // 0xa74	

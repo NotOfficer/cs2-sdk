@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: engine2.dll
-// Classes count: 49
+// Classes count: 50
 // Enums count: 4
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -402,6 +402,15 @@ struct EventAppShutdown_t
 {
 public:
 	int32_t m_nDummy0; // 0x0	
+};
+
+// Alignment: 2
+// Size: 0x8
+struct EventHostTimescaleChanged_t
+{
+public:
+	float m_flOldValue; // 0x0	
+	float m_flNewValue; // 0x4	
 };
 
 // Alignment: 1

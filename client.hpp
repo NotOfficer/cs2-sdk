@@ -8967,7 +8967,6 @@ private:
 	[[maybe_unused]] uint8_t __pad10f0[0x8]; // 0x10f0
 public:
 	// MNetworkEnable
-	// MNetworkUserGroup "LocalPlayerExclusive"
 	C_UtlVectorEmbeddedNetworkVar<ViewAngleServerChange_t> m_ServerViewAngleChanges; // 0x10f8	
 	uint32_t m_nHighestConsumedServerViewAngleChangeIndex; // 0x1148	
 	QAngle v_angle; // 0x114c	
