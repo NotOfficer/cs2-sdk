@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: engine2.dll
-// Classes count: 50
+// Classes count: 49
 // Enums count: 4
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -131,13 +131,15 @@ public:
 	float m_flRealTime; // 0x28	
 };
 
-// Alignment: 2
-// Size: 0x30
+// Alignment: 4
+// Size: 0x38
 struct EventClientProcessInput_t
 {
 public:
 	EngineLoopState_t m_LoopState; // 0x0	
 	float m_flRealTime; // 0x28	
+	float m_flTickInterval; // 0x2c	
+	double m_flTickStartTime; // 0x30	
 };
 
 // Alignment: 3
@@ -402,15 +404,6 @@ struct EventAppShutdown_t
 {
 public:
 	int32_t m_nDummy0; // 0x0	
-};
-
-// Alignment: 2
-// Size: 0x8
-struct EventHostTimescaleChanged_t
-{
-public:
-	float m_flOldValue; // 0x0	
-	float m_flNewValue; // 0x4	
 };
 
 // Alignment: 1

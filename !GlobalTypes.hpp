@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: !GlobalTypes
-// Classes count: 1295
+// Classes count: 1294
 // Enums count: 304
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -4868,13 +4868,15 @@ public:
 	int32_t m_nTickCount; // 0x0	
 };
 
-// Alignment: 2
-// Size: 0x30
+// Alignment: 4
+// Size: 0x38
 struct EventClientProcessInput_t
 {
 public:
 	EngineLoopState_t m_LoopState; // 0x0	
 	float m_flRealTime; // 0x28	
+	float m_flTickInterval; // 0x2c	
+	double m_flTickStartTime; // 0x30	
 };
 
 // Alignment: 7
@@ -5009,15 +5011,6 @@ private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
 	// No members available
-};
-
-// Alignment: 2
-// Size: 0x8
-struct EventHostTimescaleChanged_t
-{
-public:
-	float m_flOldValue; // 0x0	
-	float m_flNewValue; // 0x4	
 };
 
 // Alignment: 4
@@ -24520,11 +24513,11 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x540
+// Size: 0x5f8
 class CCSGOPlayerAnimGraphState
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0x540]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x5f8]; // 0x0
 public:
 	// No members available
 };
