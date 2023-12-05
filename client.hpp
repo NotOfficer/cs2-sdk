@@ -9344,7 +9344,7 @@ public:
 	bool m_bSmokeEffectSpawned; // 0x1149	
 };
 
-// Alignment: 12
+// Alignment: 14
 // Size: 0x1a30
 class C_BaseCSGrenade : public C_CSWeaponBase
 {
@@ -9377,6 +9377,10 @@ public:
 	GameTick_t m_nNextHoldTick; // 0x1a1c	
 	// MNetworkEnable
 	float m_flNextHoldFrac; // 0x1a20	
+	// MNetworkEnable
+	bool m_bJustPulledPin; // 0x1a24	
+	// MNetworkEnable
+	bool m_bSwitchWeaponAfterThrow; // 0x1a25	
 };
 
 // Alignment: 2
