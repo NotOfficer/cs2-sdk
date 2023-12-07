@@ -5,7 +5,7 @@
 // /////////////////////////////////////////////////////////////
 // Binary: server.dll
 // Classes count: 757
-// Enums count: 122
+// Enums count: 121
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
@@ -1652,15 +1652,6 @@ enum class C4LightEffect_t : uint32_t
 	eLightEffectNone = 0x0,
 	eLightEffectDropped = 0x1,
 	eLightEffectThirdPersonHeld = 0x2,
-};
-
-// Alignment: 4
-// Size: 0x3
-enum class EGrenadeThrowState : uint32_t
-{
-	NotThrowing = 0x0,
-	Throwing = 0x1,
-	ThrowComplete = 0x2,
 };
 
 // Alignment: 4
@@ -16242,7 +16233,10 @@ public:
 	// MNetworkEnable
 	bool m_bJumpThrow; // 0xe33	
 	// MNetworkEnable
-	EGrenadeThrowState m_eThrowStatus; // 0xe34	
+	bool m_bThrowAnimating; // 0xe34	
+private:
+	[[maybe_unused]] uint8_t __pad0e35[0x3]; // 0xe35
+public:
 	// MNetworkEnable
 	GameTime_t m_fThrowTime; // 0xe38	
 	// MNetworkEnable

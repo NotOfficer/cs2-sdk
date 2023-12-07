@@ -9345,7 +9345,7 @@ public:
 };
 
 // Alignment: 14
-// Size: 0x1a40
+// Size: 0x1a30
 class C_BaseCSGrenade : public C_CSWeaponBase
 {
 public:
@@ -9360,30 +9360,30 @@ public:
 	bool m_bPinPulled; // 0x1a03	
 	// MNetworkEnable
 	bool m_bJumpThrow; // 0x1a04	
+	// MNetworkEnable
+	bool m_bThrowAnimating; // 0x1a05	
 private:
-	[[maybe_unused]] uint8_t __pad1a05[0x3]; // 0x1a05
+	[[maybe_unused]] uint8_t __pad1a06[0x2]; // 0x1a06
 public:
 	// MNetworkEnable
-	EGrenadeThrowState m_eThrowStatus; // 0x1a08	
+	GameTime_t m_fThrowTime; // 0x1a08	
 	// MNetworkEnable
-	GameTime_t m_fThrowTime; // 0x1a0c	
+	float m_flThrowStrength; // 0x1a0c	
 	// MNetworkEnable
-	float m_flThrowStrength; // 0x1a10	
+	float m_flThrowStrengthApproach; // 0x1a10	
 	// MNetworkEnable
-	float m_flThrowStrengthApproach; // 0x1a14	
+	GameTime_t m_fDropTime; // 0x1a14	
 	// MNetworkEnable
-	GameTime_t m_fDropTime; // 0x1a18	
-	// MNetworkEnable
-	bool m_bJustPulledPin; // 0x1a1c	
+	bool m_bJustPulledPin; // 0x1a18	
 private:
-	[[maybe_unused]] uint8_t __pad1a1d[0x3]; // 0x1a1d
+	[[maybe_unused]] uint8_t __pad1a19[0x3]; // 0x1a19
 public:
 	// MNetworkEnable
-	GameTick_t m_nNextHoldTick; // 0x1a20	
+	GameTick_t m_nNextHoldTick; // 0x1a1c	
 	// MNetworkEnable
-	float m_flNextHoldFrac; // 0x1a24	
+	float m_flNextHoldFrac; // 0x1a20	
 	// MNetworkEnable
-	CHandle<C_CSWeaponBase> m_hSwitchToWeaponAfterThrow; // 0x1a28	
+	CHandle<C_CSWeaponBase> m_hSwitchToWeaponAfterThrow; // 0x1a24	
 };
 
 // Alignment: 2
@@ -9432,7 +9432,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class C_SensorGrenade : public C_BaseCSGrenade
 {
 public:
@@ -9464,7 +9464,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class CTripWireFire : public C_BaseCSGrenade
 {
 public:
@@ -10260,7 +10260,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a50
+// Size: 0x1a40
 class C_MolotovGrenade : public C_BaseCSGrenade
 {
 public:
@@ -10268,7 +10268,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a50
+// Size: 0x1a40
 class C_IncendiaryGrenade : public C_MolotovGrenade
 {
 public:
@@ -10276,7 +10276,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class C_DecoyGrenade : public C_BaseCSGrenade
 {
 public:
@@ -10284,7 +10284,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class C_Flashbang : public C_BaseCSGrenade
 {
 public:
@@ -10292,7 +10292,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class C_HEGrenade : public C_BaseCSGrenade
 {
 public:
@@ -10300,7 +10300,7 @@ public:
 };
 
 // Alignment: 0
-// Size: 0x1a40
+// Size: 0x1a30
 class C_SmokeGrenade : public C_BaseCSGrenade
 {
 public:

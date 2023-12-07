@@ -5,7 +5,7 @@
 // /////////////////////////////////////////////////////////////
 // Binary: !GlobalTypes
 // Classes count: 1294
-// Enums count: 304
+// Enums count: 303
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
@@ -3861,15 +3861,6 @@ enum class LessonPanelLayoutFileTypes_t : uint32_t
 	LAYOUT_HAND_DEFAULT = 0x0,
 	LAYOUT_WORLD_DEFAULT = 0x1,
 	LAYOUT_CUSTOM = 0x2,
-};
-
-// Alignment: 4
-// Size: 0x3
-enum class EGrenadeThrowState : uint32_t
-{
-	NotThrowing = 0x0,
-	Throwing = 0x1,
-	ThrowComplete = 0x2,
 };
 
 // Alignment: 4
