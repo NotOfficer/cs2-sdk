@@ -12630,8 +12630,8 @@ public:
 	// No members available
 };
 
-// Alignment: 80
-// Size: -0x6f8
+// Alignment: 82
+// Size: -0x6f0
 class CCSPlayerController : public CBasePlayerController
 {
 private:
@@ -12822,6 +12822,8 @@ public:
 	double m_dblLastReceivedPacketPlatFloatTime; // 0xf8f8	
 	GameTime_t m_LastTeamDamageWarningTime; // 0xf900	
 	GameTime_t m_LastTimePlayerWasDisconnectedForPawnsRemove; // 0xf904	
+	uint32_t m_nSuspiciousHitCount; // 0xf908	
+	uint32_t m_nNonSuspiciousHitStreak; // 0xf90c	
 };
 
 // Alignment: 2
