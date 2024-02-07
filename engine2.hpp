@@ -4,11 +4,12 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: engine2.dll
-// Classes count: 49
+// Classes count: 48
 // Enums count: 4
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
+// Registered binary: engine2.dll (project 'engine2')
 // Alignment: 4
 // Size: 0x3
 enum class SpawnDebugOverrideState_t : uint32_t
@@ -18,6 +19,7 @@ enum class SpawnDebugOverrideState_t : uint32_t
 	SPAWN_DEBUG_OVERRIDE_FORCE_DISABLED = 0x2,
 };
 
+// Registered binary: engine2.dll (project 'engine2')
 // Alignment: 4
 // Size: 0x5
 enum class SpawnDebugRestrictionOverrideState_t : uint32_t
@@ -29,6 +31,7 @@ enum class SpawnDebugRestrictionOverrideState_t : uint32_t
 	SPAWN_DEBUG_RESTRICT_IGNORE_TARGET_COOLDOWN_LIMITS = 0x8,
 };
 
+// Registered binary: engine2.dll (project 'entity2')
 // Alignment: 4
 // Size: 0x3
 enum class EntityDormancyType_t : uint32_t
@@ -38,6 +41,7 @@ enum class EntityDormancyType_t : uint32_t
 	ENTITY_SUSPENDED = 0x2,
 };
 
+// Registered binary: engine2.dll (project 'entity2')
 // Alignment: 4
 // Size: 0x4
 enum class EntityIOTargetType_t : uint32_t
@@ -55,8 +59,11 @@ struct EntComponentInfo_t;
 struct CEntityIdentity;
 struct CScriptComponent;
 
-// Alignment: 4
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x28
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EngineLoopState_t
 {
 private:
@@ -68,44 +75,57 @@ public:
 	int32_t m_nRenderHeight; // 0x24	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EventModInitialized_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x4
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EventFrameBoundary_t
 {
 public:
 	float m_flFrameTime; // 0x0	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x4
+// Has Trivial Destructor
 struct EventProfileStorageAvailable_t
 {
 public:
 	CSplitScreenSlot m_nSplitScreenSlot; // 0x0	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EventSplitScreenStateChanged_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
+// Registered binary: engine2.dll (project 'engine2')
 // Alignment: 8
 // Size: 0x60
+// Has Trivial Destructor
 struct EventSetTime_t
 {
 public:
@@ -122,8 +142,10 @@ public:
 	double m_flTickRemainder; // 0x58	
 };
 
-// Alignment: 2
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientPollInput_t
 {
 public:
@@ -131,8 +153,10 @@ public:
 	float m_flRealTime; // 0x28	
 };
 
-// Alignment: 4
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x38
+// Has Trivial Destructor
 struct EventClientProcessInput_t
 {
 public:
@@ -142,8 +166,10 @@ public:
 	double m_flTickStartTime; // 0x30	
 };
 
-// Alignment: 3
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientProcessGameInput_t
 {
 public:
@@ -152,8 +178,10 @@ public:
 	float m_flFrameTime; // 0x2c	
 };
 
-// Alignment: 6
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x48
+// Has Trivial Destructor
 struct EventClientPreOutput_t
 {
 public:
@@ -165,16 +193,20 @@ public:
 	bool m_bRenderOnly; // 0x44	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Destructor
 struct EventClientSceneSystemThreadStateChange_t
 {
 public:
 	bool m_bThreadsActive; // 0x0	
 };
 
-// Alignment: 5
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x38
+// Has Trivial Destructor
 struct EventClientOutput_t
 {
 public:
@@ -185,8 +217,10 @@ public:
 	bool m_bRenderOnly; // 0x34	
 };
 
-// Alignment: 5
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventClientPostOutput_t
 {
 public:
@@ -197,18 +231,23 @@ public:
 	bool m_bRenderOnly; // 0x38	
 };
 
-// Alignment: 3
-// Size: 0x30
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
+// Size: 0x38
+// Has Trivial Destructor
 struct EventClientFrameSimulate_t
 {
 public:
 	EngineLoopState_t m_LoopState; // 0x0	
 	float m_flRealTime; // 0x28	
 	float m_flFrameTime; // 0x2c	
+	double m_flWhenScheduleSendTickPacket; // 0x30	
 };
 
-// Alignment: 3
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventSimpleLoopFrameUpdate_t
 {
 public:
@@ -217,8 +256,10 @@ public:
 	float m_flFrameTime; // 0x2c	
 };
 
-// Alignment: 3
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventSimulate_t
 {
 public:
@@ -227,8 +268,10 @@ public:
 	bool m_bLastTick; // 0x29	
 };
 
-// Alignment: 4
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventAdvanceTick_t : public EventSimulate_t
 {
 public:
@@ -238,8 +281,10 @@ public:
 	int32_t m_nTotalTicks; // 0x3c	
 };
 
-// Alignment: 4
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventPostAdvanceTick_t : public EventSimulate_t
 {
 public:
@@ -249,164 +294,194 @@ public:
 	int32_t m_nTotalTicks; // 0x3c	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventServerAdvanceTick_t : public EventAdvanceTick_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventServerPostAdvanceTick_t : public EventPostAdvanceTick_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventClientAdvanceTick_t : public EventAdvanceTick_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x40
+// Has Trivial Destructor
 struct EventClientPostAdvanceTick_t : public EventPostAdvanceTick_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 2
-// Size: 0x8
-struct EventClientSendInput_t
-{
-public:
-	bool m_bFinalClientCommandTick; // 0x0	
-	int32_t m_nAdditionalClientCommandsToCreate; // 0x4	
-};
-
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Destructor
 struct EventClientPredictionPostNetupdate_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x4
+// Has Trivial Destructor
 struct EventClientPollNetworking_t
 {
 public:
 	int32_t m_nTickCount; // 0x0	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Destructor
 struct EventClientProcessNetworking_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientPreSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventServerPollNetworking_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventServerProcessNetworking_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventServerSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventServerPostSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientPostSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EventClientPauseSimulate_t : public EventSimulate_t
 {
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x10
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EventPostDataUpdate_t
 {
 public:
 	int32_t m_nCount; // 0x0	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x10
+// Has Trivial Constructor
+// Has Trivial Destructor
 struct EventPreDataUpdate_t
 {
 public:
 	int32_t m_nCount; // 0x0	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'engine2')
+// Alignment: 8
 // Size: 0x4
+// Has Trivial Destructor
 struct EventAppShutdown_t
 {
 public:
 	int32_t m_nDummy0; // 0x0	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x28
 class CNetworkVarChainer
 {
@@ -418,28 +493,35 @@ public:
 	ChangeAccessorFieldPathIndex_t m_PathIndex; // 0x20	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
 class CVariantDefaultAllocator
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x10
+// Has Trivial Destructor
 struct EntOutput_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x10]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 7
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x68
+// Has Trivial Destructor
 struct EntComponentInfo_t
 {
 public:
@@ -455,28 +537,38 @@ public:
 	CEntityComponentHelper* m_pBaseClassComponentHelper; // 0x60	
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x8
+// Has VTable
+// Is Abstract
+// Has Trivial Destructor
 class CEntityComponent
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 0
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x30
+// Has Trivial Destructor
 struct EntInput_t
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x30]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 4
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x28
+// Has VTable
+// Is Abstract
+// Has Trivial Destructor
 class CEntityComponentHelper
 {
 private:
@@ -494,8 +586,11 @@ public:
 	CEntityComponentHelper* m_pNext; // 0x20	
 };
 
-// Alignment: 11
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x78
+// 
+// MNetworkVarNames "int32 m_nameStringableIndex"
 class CEntityIdentity
 {
 private:
@@ -526,20 +621,31 @@ public:
 	CEntityIdentity* m_pNext; // 0x60	
 	CEntityIdentity* m_pPrevByClass; // 0x68	
 	CEntityIdentity* m_pNextByClass; // 0x70	
+	
+	// Datamap fields:
+	// void m_pAttributes; // 0x48
 };
 
-// Alignment: 0
-// Size: 0x8
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
 class CEmptyEntityInstance
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
 public:
-	// No members available
+	// No schema binary for binding
 };
 
-// Alignment: 3
-// Size: 0x30
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x38
+// Has VTable
+// 
+// MNetworkVarNames "CEntityIdentity * m_pEntity"
+// MNetworkVarNames "CScriptComponent::Storage_t m_CScriptComponent"
 class CEntityInstance
 {
 private:
@@ -556,10 +662,13 @@ public:
 	// MNetworkEnable
 	// MNetworkDisable
 	CScriptComponent* m_CScriptComponent; // 0x28	
+	bool m_bVisibleinPVS; // 0x30	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x28
+// Has VTable
 class CEntityIOOutput
 {
 private:
@@ -568,8 +677,10 @@ public:
 	CVariantBase<CVariantDefaultAllocator> m_Value; // 0x18	
 };
 
-// Alignment: 1
+// Registered binary: engine2.dll (project 'entity2')
+// Alignment: 8
 // Size: 0x38
+// Has VTable
 class CScriptComponent : public CEntityComponent
 {
 private:
