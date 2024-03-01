@@ -9537,7 +9537,7 @@ public:
 
 // Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x830
+// Size: 0x840
 // Has VTable
 // 
 // MNetworkUserGroupProxy "CCSPlayerController"
@@ -9586,6 +9586,10 @@ public:
 // MNetworkVarNames "CHandle< CCSPlayerController> m_hOriginalControllerOfCurrentPawn"
 // MNetworkVarNames "int32 m_iScore"
 // MNetworkVarNames "EKillTypes_t m_vecKills"
+// MNetworkVarNames "bool m_bMvpNoMusic"
+// MNetworkVarNames "int m_eMvpReason"
+// MNetworkVarNames "int m_iMusicKitID"
+// MNetworkVarNames "int m_iMusicKitMVPs"
 // MNetworkVarNames "int m_iMVPs"
 class CCSPlayerController : public CBasePlayerController
 {
@@ -9741,8 +9745,20 @@ public:
 	// MNetworkEnable
 	C_NetworkUtlVectorBase<EKillTypes_t> m_vecKills; // 0x810	
 	// MNetworkEnable
-	int32_t m_iMVPs; // 0x828	
-	bool m_bIsPlayerNameDirty; // 0x82c	
+	bool m_bMvpNoMusic; // 0x828	
+private:
+	[[maybe_unused]] uint8_t __pad0829[0x3]; // 0x829
+public:
+	// MNetworkEnable
+	int32_t m_eMvpReason; // 0x82c	
+	// MNetworkEnable
+	int32_t m_iMusicKitID; // 0x830	
+	// MNetworkEnable
+	int32_t m_iMusicKitMVPs; // 0x834	
+	// MNetworkEnable
+	// MNetworkChangeCallback "OnMVPCountChanged"
+	int32_t m_iMVPs; // 0x838	
+	bool m_bIsPlayerNameDirty; // 0x83c	
 };
 
 // Registered binary: client.dll (project 'client')
@@ -11803,11 +11819,9 @@ public:
 class C_PredictedViewModel : public C_BaseViewModel
 {
 public:
-	QAngle m_LagAnglesHistory; // 0xf40	
-private:
-	[[maybe_unused]] uint8_t __pad0f4c[0xc]; // 0xf4c
-public:
-	Vector m_vPredictedOffset; // 0xf58	
+	Vector m_vPredictedLagOffset; // 0xf40	
+	QAngle m_targetSpeed; // 0xf4c	
+	QAngle m_currentSpeed; // 0xf58	
 };
 
 // Registered binary: client.dll (project 'client')
@@ -12385,7 +12399,7 @@ public:
 
 // Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0xfc8
+// Size: 0xfe8
 // Has VTable
 // 
 // MNetworkOverride "m_hWeapon"
@@ -12405,9 +12419,9 @@ public:
 	CEntityIndex m_nLastKnownAssociatedWeaponEntIndex; // 0xf74	
 	bool m_bNeedToQueueHighResComposite; // 0xf78	
 private:
-	[[maybe_unused]] uint8_t __pad0f79[0x43]; // 0xf79
+	[[maybe_unused]] uint8_t __pad0f79[0x63]; // 0xf79
 public:
-	QAngle m_vLoweredWeaponOffset; // 0xfbc	
+	QAngle m_vLoweredWeaponOffset; // 0xfdc	
 };
 
 // Registered binary: client.dll (project 'client')
@@ -12478,7 +12492,7 @@ public:
 	int32_t m_iAlpha; // 0x16b8	
 	int32_t m_iScopeTextureID; // 0x16bc	
 	int32_t m_iCrosshairTextureID; // 0x16c0	
-	float m_flGunAccuracyPosition; // 0x16c4	
+	float m_flGunAccuracyPositionDeprecated; // 0x16c4	
 	int32_t m_nLastEmptySoundCmdNum; // 0x16c8	
 	// MNetworkEnable
 	// MNetworkUserGroup "LocalWeaponExclusive"
@@ -12658,7 +12672,6 @@ public:
 	int32_t m_nSpotRules; // 0x1ac0	
 	bool m_bPlayedArmingBeeps[7]; // 0x1ac4	
 	bool m_bBombPlanted; // 0x1acb	
-	bool m_bDroppedFromDeath; // 0x1acc	
 };
 
 // Registered binary: client.dll (project 'client')

@@ -1728,7 +1728,7 @@ enum class PulseInstructionCode_t : uint16_t
 
 // Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
 // Alignment: 4
-// Size: 0x12
+// Size: 0x13
 enum class PulseValueType_t : uint32_t
 {
 	PVAL_INVALID = 0xffffffffffffffff,
@@ -1760,8 +1760,10 @@ enum class PulseValueType_t : uint32_t
 	PVAL_ANY = 0xe,
 	// MPropertyFriendlyName "Schema Enum"
 	PVAL_SCHEMA_ENUM = 0xf,
+	// MPropertyFriendlyName "Panorama Panel Handle"
+	PVAL_PANORAMA_PANEL_HANDLE = 0x10,
 	// MPropertySuppressEnumerator
-	PVAL_COUNT = 0x10,
+	PVAL_COUNT = 0x11,
 };
 
 // Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
@@ -17205,7 +17207,7 @@ public:
 
 // Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
 // Alignment: 8
-// Size: 0x60
+// Size: 0x88
 // 
 // MGetKV3ClassDefaults
 class CPulse_InvokeBinding
@@ -17809,7 +17811,7 @@ public:
 // MCellForDomain
 // MPulseCellMethodBindings
 // MPropertyFriendlyName "Wait For Cursors With Tag"
-// MPropertyDescription "Causes each execution cursor to wait for the completion of cursors with a given tag. Use this to manage exclusive zones with remote control."
+// MPropertyDescription "Causes this execution cursor to wait for the completion of other cursors with the given tag. Can optionally kill the tag while waiting."
 // MPulseEditorHeaderIcon
 class CPulseCell_WaitForCursorsWithTag : public CPulseCell_WaitForCursorsWithTagBase
 {
