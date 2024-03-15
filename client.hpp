@@ -13390,15 +13390,13 @@ private:
 	[[maybe_unused]] uint8_t __pad1615[0x3]; // 0x1615
 public:
 	float m_flLastSmokeOverlayAlpha; // 0x1618	
-	Vector m_vLastSmokeOverlayColor; // 0x161c	
-	ParticleIndex_t m_nPlayerSmokedFx; // 0x1628	
-	ParticleIndex_t m_nPlayerInfernoBodyFx; // 0x162c	
-	ParticleIndex_t m_nPlayerInfernoFootFx; // 0x1630	
-	float m_flNextMagDropTime; // 0x1634	
-	int32_t m_nLastMagDropAttachmentIndex; // 0x1638	
-private:
-	[[maybe_unused]] uint8_t __pad163c[0x4]; // 0x163c
-public:
+	float m_flLastSmokeAge; // 0x161c	
+	Vector m_vLastSmokeOverlayColor; // 0x1620	
+	ParticleIndex_t m_nPlayerSmokedFx; // 0x162c	
+	ParticleIndex_t m_nPlayerInfernoBodyFx; // 0x1630	
+	ParticleIndex_t m_nPlayerInfernoFootFx; // 0x1634	
+	float m_flNextMagDropTime; // 0x1638	
+	int32_t m_nLastMagDropAttachmentIndex; // 0x163c	
 	CUtlVector<C_BulletHitModel*> m_vecBulletHitModels; // 0x1640	
 	CUtlVector<C_PickUpModelSlerper*> m_vecPickupModelSlerpers; // 0x1658	
 	Vector m_vecLastAliveLocalVelocity; // 0x1670	
