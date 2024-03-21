@@ -11936,7 +11936,7 @@ public:
 
 // Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x1588
+// Size: 0x1590
 // Has VTable
 class C_CSGO_PreviewModel : public C_BaseFlex
 {
@@ -11946,11 +11946,12 @@ public:
 	CUtlString m_defaultAnim; // 0x1080	
 	AnimLoopMode_t m_nDefaultAnimLoopMode; // 0x1088	
 	float m_flInitialModelScale; // 0x108c	
+	CUtlString m_sInitialWeaponState; // 0x1090	
 };
 
 // Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x1588
+// Size: 0x1590
 // Has VTable
 class C_CSGO_PreviewModelAlias_csgo_item_previewmodel : public C_CSGO_PreviewModel
 {
