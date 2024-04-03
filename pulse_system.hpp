@@ -9,1517 +9,898 @@
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 2
-// Size: 0x3d
-enum class PulseInstructionCode_t : uint16_t
-{
-	INVALID = 0x0,
-	IMMEDIATE_HALT = 0x1,
-	RETURN_VOID = 0x2,
-	RETURN_VALUE = 0x3,
-	NOP = 0x4,
-	JUMP = 0x5,
-	JUMP_COND = 0x6,
-	CHUNK_LEAP = 0x7,
-	CHUNK_LEAP_COND = 0x8,
-	PULSE_CALL_SYNC = 0x9,
-	PULSE_CALL_ASYNC_FIRE = 0xa,
-	CELL_INVOKE = 0xb,
-	LIBRARY_INVOKE = 0xc,
-	SET_VAR = 0xd,
-	GET_VAR = 0xe,
-	GET_CONST = 0xf,
-	SET_REGISTER_DOMAIN_VALUE = 0x10,
-	COPY = 0x11,
-	NOT = 0x12,
-	NEGATE = 0x13,
-	ADD = 0x14,
-	SUB = 0x15,
-	MUL = 0x16,
-	DIV = 0x17,
-	MOD = 0x18,
-	LT = 0x19,
-	LTE = 0x1a,
-	EQ = 0x1b,
-	NE = 0x1c,
-	AND = 0x1d,
-	OR = 0x1e,
-	CONVERT_VALUE = 0x1f,
-	LAST_SERIALIZED_CODE = 0x20,
-	NEGATE_INT = 0x21,
-	NEGATE_FLOAT = 0x22,
-	ADD_INT = 0x23,
-	ADD_FLOAT = 0x24,
-	ADD_STRING = 0x25,
-	SUB_INT = 0x26,
-	SUB_FLOAT = 0x27,
-	MUL_INT = 0x28,
-	MUL_FLOAT = 0x29,
-	DIV_INT = 0x2a,
-	DIV_FLOAT = 0x2b,
-	MOD_INT = 0x2c,
-	MOD_FLOAT = 0x2d,
-	LT_INT = 0x2e,
-	LT_FLOAT = 0x2f,
-	LTE_INT = 0x30,
-	LTE_FLOAT = 0x31,
-	EQ_BOOL = 0x32,
-	EQ_INT = 0x33,
-	EQ_FLOAT = 0x34,
-	EQ_STRING = 0x35,
-	EQ_ENTITY_NAME = 0x36,
-	NE_BOOL = 0x37,
-	NE_INT = 0x38,
-	NE_FLOAT = 0x39,
-	NE_STRING = 0x3a,
-	NE_ENTITY_NAME = 0x3b,
-	GET_CONST_INLINE_STORAGE = 0x3c,
-};
+struct CDecalInfo;
+struct C_FireSmoke;
+struct CompositeMaterialInputLooseVariable_t;
+struct GameTime_t;
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x2
-enum class PulseMethodCallMode_t : uint32_t
-{
-	// MPropertyFriendlyName "Wait For Completion"
-	// MPropertyDescription "Synchronous - wait for the method to fully complete before returning"
-	SYNC_WAIT_FOR_COMPLETION = 0x0,
-	// MPropertyFriendlyName "Fire And Forget"
-	// MPropertyDescription "Asynchronous - returns and continues despite the called method yielding"
-	ASYNC_FIRE_AND_FORGET = 0x1,
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x3
-enum class PulseCursorExecResult_t : uint32_t
-{
-	Succeeded = 0x0,
-	Canceled = 0x1,
-	Failed = 0x2,
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x4
-enum class PulseCursorCancelPriority_t : uint32_t
-{
-	// MPropertyFriendlyName "Keep running normally."
-	None = 0x0,
-	// MPropertyFriendlyName "Kill after current node."
-	// MPropertyDescription "Do not stop the current yielding node, but do not continue to the next node afterwards."
-	CancelOnSucceeded = 0x1,
-	// MPropertyFriendlyName "Kill elegantly."
-	// MPropertyDescription "Request elegant wind-down of any associated work (e.g. vcd interrupt)."
-	SoftCancel = 0x2,
-	// MPropertyFriendlyName "Kill immediately."
-	// MPropertyDescription "Stop without any wind-down."
-	HardCancel = 0x3,
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x13
-enum class PulseValueType_t : uint32_t
-{
-	PVAL_INVALID = 0xffffffffffffffff,
-	// MPropertyFriendlyName "Boolean"
-	PVAL_BOOL = 0x0,
-	// MPropertyFriendlyName "Integer"
-	PVAL_INT = 0x1,
-	// MPropertyFriendlyName "Float"
-	PVAL_FLOAT = 0x2,
-	// MPropertyFriendlyName "String"
-	PVAL_STRING = 0x3,
-	// MPropertyFriendlyName "Vector3"
-	PVAL_VEC3 = 0x4,
-	// MPropertyFriendlyName "Transform"
-	PVAL_TRANSFORM = 0x5,
-	// MPropertyFriendlyName "Color"
-	PVAL_COLOR_RGB = 0x6,
-	// MPropertyFriendlyName "Entity Handle"
-	PVAL_EHANDLE = 0x7,
-	// MPropertyFriendlyName "Resource"
-	PVAL_RESOURCE = 0x8,
-	// MPropertyFriendlyName "SoundEvent Handle"
-	PVAL_SNDEVT_GUID = 0x9,
-	// MPropertyFriendlyName "Entity Name"
-	PVAL_ENTITY_NAME = 0xa,
-	PVAL_SCHEMA_PTR = 0xb,
-	PVAL_TYPESAFE_INT = 0xc,
-	PVAL_CURSOR_FLOW = 0xd,
-	PVAL_ANY = 0xe,
-	// MPropertyFriendlyName "Schema Enum"
-	PVAL_SCHEMA_ENUM = 0xf,
-	// MPropertyFriendlyName "Panorama Panel Handle"
-	PVAL_PANORAMA_PANEL_HANDLE = 0x10,
-	// MPropertySuppressEnumerator
-	PVAL_COUNT = 0x11,
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x5
-enum class PulseTestEnumColor_t : uint32_t
-{
-	// MPropertyFriendlyName "Black"
-	BLACK = 0x0,
-	// MPropertyFriendlyName "White"
-	WHITE = 0x1,
-	// MPropertyFriendlyName "Red"
-	RED = 0x2,
-	// MPropertyFriendlyName "Green"
-	GREEN = 0x3,
-	// MPropertyFriendlyName "Blue"
-	BLUE = 0x4,
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x3
-enum class PulseTestEnumShape_t : uint32_t
-{
-	// MPropertyFriendlyName "Circle"
-	CIRCLE = 0x64,
-	// MPropertyFriendlyName "Square"
-	SQUARE = 0xc8,
-	// MPropertyFriendlyName "Triangle"
-	TRIANGLE = 0x12c,
-};
-
-struct PulseRuntimeRegisterIndex_t;
-struct PulseRegisterMap_t;
-struct PulseRuntimeCellIndex_t;
-struct PulseRuntimeChunkIndex_t;
-struct PulseDocNodeID_t;
-struct PulseRuntimeVarIndex_t;
-struct PulseRuntimeInvokeIndex_t;
-struct PulseRuntimeCallInfoIndex_t;
-struct PulseRuntimeConstantIndex_t;
-struct PulseRuntimeOutputIndex_t;
-struct CPulse_ResumePoint;
-struct CPulse_OutflowConnection;
-struct PulseTestEHandle_t;
-struct CPulseGraphInstance_TestDomain;
-
-// Registered binary: pulse_system.dll (project 'pulse_system')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseLibraryBindings
-// MPropertyDescription "Library for interacting with pulse cursors."
-class CPulseCursorFuncs
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_system')
-// Alignment: 8
-// Size: 0x30
-struct CPulseCell_WaitForCursorsWithTagBase__CursorState_t
-{
-public:
-	CUtlSymbolLarge m_TagName; // 0x0	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_system')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseLibraryBindings
-// MPropertyDescription "Library for interacting with a few global test values."
-class CPulseTestFuncs_LibraryA
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseProvideFeatureTag
-// MPulseLibraryBindings
-class FakeEntity_tAPI
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x168
+// Size: 0x8
 // Has VTable
-// 
-// MPulseInternal_IsCursor
-class CPulseExecCursor
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x168]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x2
+// Is Abstract
 // Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeRegisterIndex_t
-{
-public:
-	int16_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeRegisterIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x60
-// 
-// MGetKV3ClassDefaults
-class CPulse_Chunk
-{
-public:
-	CUtlLeanVector<PGDInstruction_t> m_Instructions; // 0x0	
-	CUtlLeanVector<CPulse_RegisterInfo> m_Registers; // 0x10	
-	CUtlLeanVector<PulseDocNodeID_t> m_InstructionEditorIDs; // 0x20	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x38
-// 
-// MGetKV3ClassDefaults
-class CPulse_Variable
-{
-public:
-	CUtlSymbolLarge m_Name; // 0x0	
-	CUtlString m_Description; // 0x8	
-	CPulseValueFullType m_Type; // 0x10	
-	KeyValues3 m_DefaultValue; // 0x20	
-private:
-	[[maybe_unused]] uint8_t __pad0030[0x2]; // 0x30
-public:
-	bool m_bIsPublic; // 0x32	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x28
-// 
-// MGetKV3ClassDefaults
-class CPulse_Constant
-{
-public:
-	CPulseValueFullType m_Type; // 0x0	
-	KeyValues3 m_Value; // 0x10	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x20
-// 
-// MGetKV3ClassDefaults
-class CPulse_PublicOutput
-{
-public:
-	CUtlSymbolLarge m_Name; // 0x0	
-	CUtlString m_Description; // 0x8	
-	CPulseValueFullType m_ParamType; // 0x10	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x20
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-class CPulse_OutputConnection
-{
-public:
-	CUtlSymbolLarge m_SourceOutput; // 0x0	
-	CUtlSymbolLarge m_TargetEntity; // 0x8	
-	CUtlSymbolLarge m_TargetInput; // 0x10	
-	CUtlSymbolLarge m_Param; // 0x18	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeChunkIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeChunkIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseDocNodeID_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseDocNodeID_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x128
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-class CPulseGraphDef
+class IClientAlphaProperty
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
 public:
-	CUtlSymbolLarge m_DomainIdentifier; // 0x8	
-	CUtlSymbolLarge m_ParentMapName; // 0x10	
-	CUtlVector<CPulse_Chunk*> m_Chunks; // 0x18	
-	CUtlVector<CPulseCell_Base*> m_Cells; // 0x30	
-	CUtlVector<CPulse_Variable> m_Vars; // 0x48	
-	CUtlVector<CPulse_PublicOutput> m_PublicOutputs; // 0x60	
-	CUtlVector<CPulse_InvokeBinding*> m_InvokeBindings; // 0x78	
-	CUtlVector<CPulse_CallInfo*> m_CallInfos; // 0x90	
-	CUtlVector<CPulse_Constant> m_Constants; // 0xa8	
-	CUtlVector<CPulse_OutputConnection*> m_OutputConnections; // 0xc0	
+	// No schema binary for binding
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0xd8
+// Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
+// 
+// MPulseLibraryBindings
+class CClientPointEntityAPI
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
+public:
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x38
 // Has VTable
 // 
-// MPulseInstanceDomainInfo
-// MPulseDomainHiddenInTool
-class CBasePulseGraphInstance
+// MGetKV3ClassDefaults
+class CCompositeMaterialEditorDoc
 {
 private:
-	[[maybe_unused]] uint8_t __pad0000[0xd8]; // 0x0
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
 public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseLibraryBindings
-// MPropertyDescription "Basic math support."
-class CPulseMathlib
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseLibraryBindings
-// MPropertyDescription "Testing script helpers."
-class CPulseTestScriptLib
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeCellIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeCellIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeCallInfoIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeCallInfoIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeVarIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeVarIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeOutputIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeOutputIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x2
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeStateOffset_t
-{
-public:
-	uint16_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeStateOffset_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x58
-// 
-// MGetKV3ClassDefaults
-class CPulse_RegisterInfo
-{
-public:
-	PulseRuntimeRegisterIndex_t m_nReg; // 0x0	
-	CPulseValueFullType m_Type; // 0x8	
-	CKV3MemberNameWithStorage m_OriginName; // 0x18	
-	int32_t m_nWrittenByInstruction; // 0x50	
-	int32_t m_nLastReadByInstruction; // 0x54	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x2
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeConstantIndex_t
-{
-public:
-	int16_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeConstantIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x20
-// 
-// MGetKV3ClassDefaults
-struct PulseRegisterMap_t
-{
-public:
-	KeyValues3 m_Inparams; // 0x0	
-	KeyValues3 m_Outparams; // 0x10	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeInvokeIndex_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeInvokeIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x40
-// 
-// MGetKV3ClassDefaults
-class CPulse_CallInfo
-{
-public:
-	CUtlSymbolLarge m_PortName; // 0x0	
-	PulseDocNodeID_t m_nEditorNodeID; // 0x8	
+	int32_t m_nVersion; // 0x8	
 private:
 	[[maybe_unused]] uint8_t __pad000c[0x4]; // 0xc
 public:
-	PulseRegisterMap_t m_RegisterMap; // 0x10	
-	PulseDocNodeID_t m_CallMethodID; // 0x30	
-	PulseRuntimeChunkIndex_t m_nSrcChunk; // 0x34	
-	int32_t m_nSrcInstruction; // 0x38	
+	CUtlVector<CompositeMaterialEditorPoint_t> m_Points; // 0x10	
+	KeyValues3 m_KVthumbnail; // 0x28	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseRuntimeEntrypointIndex_t
+// Size: 0xb0
+class CDecalInfo
 {
 public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseRuntimeEntrypointIndex_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseGraphInstanceID_t
-{
-public:
-	uint32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseGraphInstanceID_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseCursorID_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseCursorID_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseCursorYieldToken_t
-{
-public:
-	int32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseCursorYieldToken_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x88
-// 
-// MGetKV3ClassDefaults
-class CPulse_InvokeBinding
-{
-public:
-	PulseRegisterMap_t m_RegisterMap; // 0x0	
-	CUtlSymbolLarge m_FuncName; // 0x20	
-	PulseRuntimeCellIndex_t m_nCellIndex; // 0x28	
-	PulseRuntimeChunkIndex_t m_nSrcChunk; // 0x2c	
-	int32_t m_nSrcInstruction; // 0x30	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// 
-// MGetKV3ClassDefaults
-struct PGDInstruction_t
-{
-public:
-	PulseInstructionCode_t m_nCode; // 0x0	
-	PulseRuntimeVarIndex_t m_nVar; // 0x4	
-	PulseRuntimeRegisterIndex_t m_nReg0; // 0x8	
-	PulseRuntimeRegisterIndex_t m_nReg1; // 0xa	
-	PulseRuntimeRegisterIndex_t m_nReg2; // 0xc	
+	float m_flAnimationScale; // 0x0	
+	float m_flAnimationLifeSpan; // 0x4	
+	float m_flPlaceTime; // 0x8	
+	float m_flFadeStartTime; // 0xc	
+	float m_flFadeDuration; // 0x10	
+	int32_t m_nVBSlot; // 0x14	
+	int32_t m_nBoneIndex; // 0x18	
 private:
-	[[maybe_unused]] uint8_t __pad000e[0x2]; // 0xe
+	[[maybe_unused]] uint8_t __pad001c[0xc]; // 0x1c
 public:
-	PulseRuntimeInvokeIndex_t m_nInvokeBindingIndex; // 0x10	
-	PulseRuntimeChunkIndex_t m_nChunk; // 0x14	
-	int32_t m_nDestInstruction; // 0x18	
-	PulseRuntimeCallInfoIndex_t m_nCallInfoIndex; // 0x1c	
-	PulseRuntimeConstantIndex_t m_nConstIdx; // 0x20	
+	Vector m_vPosition; // 0x28	
+	float m_flBoundingRadiusSqr; // 0x34	
 private:
-	[[maybe_unused]] uint8_t __pad0022[0x6]; // 0x22
+	[[maybe_unused]] uint8_t __pad0038[0x8]; // 0x38
 public:
-	CBufferString m_DomainValue; // 0x28	
+	CDecalInfo* m_pNext; // 0x40	
+	CDecalInfo* m_pPrev; // 0x48	
+private:
+	[[maybe_unused]] uint8_t __pad0050[0x58]; // 0x50
+public:
+	int32_t m_nDecalMaterialIndex; // 0xa8	
+	
+	// Datamap fields:
+	// void m_decalEvent; // 0x50
+	// void m_hProjectedDecal; // 0x20
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x10
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-class CPulse_OutflowConnection
-{
-public:
-	CUtlSymbolLarge m_SourceOutflowName; // 0x0	
-	PulseRuntimeChunkIndex_t m_nDestChunk; // 0x8	
-	int32_t m_nInstruction; // 0xc	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x10
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-class CPulse_ResumePoint : public CPulse_OutflowConnection
-{
-public:
-	// Static fields:
-	static CPulse_ResumePoint &Get_Invalid(){return *reinterpret_cast<CPulse_ResumePoint*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("CPulse_ResumePoint")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
+// Size: 0xd0
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-class CPulseCell_Base
+class CGlowOverlay
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
 public:
-	// MFgdFromSchemaCompletelySkipField
-	PulseDocNodeID_t m_nEditorNodeID; // 0x8	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-class CPulseCell_BaseFlow : public CPulseCell_Base
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x70
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-class CPulseCell_Inflow_BaseEntrypoint : public CPulseCell_BaseFlow
-{
-public:
-	PulseRuntimeChunkIndex_t m_EntryChunk; // 0x48	
+	Vector m_vPos; // 0x8	
+	bool m_bDirectional; // 0x14	
 private:
-	[[maybe_unused]] uint8_t __pad004c[0x4]; // 0x4c
+	[[maybe_unused]] uint8_t __pad0015[0x3]; // 0x15
 public:
-	PulseRegisterMap_t m_RegisterMap; // 0x50	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x50
-// 
-// MGetKV3ClassDefaults
-class CPulseRuntimeMethodArg
-{
-public:
-	CKV3MemberNameWithStorage m_Name; // 0x0	
-	CUtlString m_Description; // 0x38	
-	CPulseValueFullType m_Type; // 0x40	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0xb0
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Inflow_Method : public CPulseCell_Inflow_BaseEntrypoint
-{
-public:
-	CUtlSymbolLarge m_MethodName; // 0x70	
-	CUtlString m_Description; // 0x78	
-	bool m_bIsPublic; // 0x80	
+	Vector m_vDirection; // 0x18	
+	bool m_bInSky; // 0x24	
 private:
-	[[maybe_unused]] uint8_t __pad0081[0x7]; // 0x81
+	[[maybe_unused]] uint8_t __pad0025[0x3]; // 0x25
 public:
-	CPulseValueFullType m_ReturnType; // 0x88	
-	CUtlVector<CPulseRuntimeMethodArg> m_Args; // 0x98	
+	float m_skyObstructionScale; // 0x28	
+private:
+	[[maybe_unused]] uint8_t __pad002c[0x4]; // 0x2c
+public:
+	CGlowSprite m_Sprites[4]; // 0x30	
+	int32_t m_nSprites; // 0xb0	
+	float m_flProxyRadius; // 0xb4	
+	float m_flHDRColorScale; // 0xb8	
+	float m_flGlowObstructionScale; // 0xbc	
+	bool m_bCacheGlowObstruction; // 0xc0	
+	bool m_bCacheSkyObstruction; // 0xc1	
+	int16_t m_bActivated; // 0xc2	
+	uint16_t m_ListIndex; // 0xc4	
+private:
+	[[maybe_unused]] uint8_t __pad00c6[0x2]; // 0xc6
+public:
+	int32_t m_queryHandle; // 0xc8	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x78
+// Size: 0x2e0
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Inflow_EventHandler : public CPulseCell_Inflow_BaseEntrypoint
+class CFlashlightEffect
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x10]; // 0x0
+public:
+	bool m_bIsOn; // 0x10	
+private:
+	[[maybe_unused]] uint8_t __pad0011[0xf]; // 0x11
+public:
+	bool m_bMuzzleFlashEnabled; // 0x20	
+private:
+	[[maybe_unused]] uint8_t __pad0021[0x3]; // 0x21
+public:
+	float m_flMuzzleFlashBrightness; // 0x24	
+private:
+	[[maybe_unused]] uint8_t __pad0028[0x8]; // 0x28
+public:
+	Quaternion m_quatMuzzleFlashOrientation; // 0x30	
+	Vector m_vecMuzzleFlashOrigin; // 0x40	
+	float m_flFov; // 0x4c	
+	float m_flFarZ; // 0x50	
+	float m_flLinearAtten; // 0x54	
+	bool m_bCastsShadows; // 0x58	
+private:
+	[[maybe_unused]] uint8_t __pad0059[0x3]; // 0x59
+public:
+	float m_flCurrentPullBackDist; // 0x5c	
+	CStrongHandle<InfoForResourceTypeCTextureBase> m_FlashlightTexture; // 0x60	
+	CStrongHandle<InfoForResourceTypeCTextureBase> m_MuzzleFlashTexture; // 0x68	
+	char m_textureName[64]; // 0x70	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x4c0
+// Has VTable
+class CGlobalLightBase
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x10]; // 0x0
+public:
+	bool m_bSpotLight; // 0x10	
+private:
+	[[maybe_unused]] uint8_t __pad0011[0x3]; // 0x11
+public:
+	Vector m_SpotLightOrigin; // 0x14	
+	QAngle m_SpotLightAngles; // 0x20	
+	Vector m_ShadowDirection; // 0x2c	
+	Vector m_AmbientDirection; // 0x38	
+	Vector m_SpecularDirection; // 0x44	
+	Vector m_InspectorSpecularDirection; // 0x50	
+	float m_flSpecularPower; // 0x5c	
+	float m_flSpecularIndependence; // 0x60	
+	Color m_SpecularColor; // 0x64	
+	bool m_bStartDisabled; // 0x68	
+	bool m_bEnabled; // 0x69	
+	Color m_LightColor; // 0x6a	
+	Color m_AmbientColor1; // 0x6e	
+	Color m_AmbientColor2; // 0x72	
+	Color m_AmbientColor3; // 0x76	
+private:
+	[[maybe_unused]] uint8_t __pad007a[0x2]; // 0x7a
+public:
+	float m_flSunDistance; // 0x7c	
+	float m_flFOV; // 0x80	
+	float m_flNearZ; // 0x84	
+	float m_flFarZ; // 0x88	
+	bool m_bEnableShadows; // 0x8c	
+	bool m_bOldEnableShadows; // 0x8d	
+	bool m_bBackgroundClearNotRequired; // 0x8e	
+private:
+	[[maybe_unused]] uint8_t __pad008f[0x1]; // 0x8f
+public:
+	float m_flCloudScale; // 0x90	
+	float m_flCloud1Speed; // 0x94	
+	float m_flCloud1Direction; // 0x98	
+	float m_flCloud2Speed; // 0x9c	
+	float m_flCloud2Direction; // 0xa0	
+private:
+	[[maybe_unused]] uint8_t __pad00a4[0xc]; // 0xa4
+public:
+	float m_flAmbientScale1; // 0xb0	
+	float m_flAmbientScale2; // 0xb4	
+	float m_flGroundScale; // 0xb8	
+	float m_flLightScale; // 0xbc	
+	float m_flFoWDarkness; // 0xc0	
+	bool m_bEnableSeparateSkyboxFog; // 0xc4	
+private:
+	[[maybe_unused]] uint8_t __pad00c5[0x3]; // 0xc5
+public:
+	Vector m_vFowColor; // 0xc8	
+	Vector m_ViewOrigin; // 0xd4	
+	QAngle m_ViewAngles; // 0xe0	
+	float m_flViewFoV; // 0xec	
+	Vector m_WorldPoints[8]; // 0xf0	
+private:
+	[[maybe_unused]] uint8_t __pad0150[0x358]; // 0x150
+public:
+	Vector2D m_vFogOffsetLayer0; // 0x4a8	
+	Vector2D m_vFogOffsetLayer1; // 0x4b0	
+	CHandle<C_BaseEntity> m_hEnvWind; // 0x4b8	
+	CHandle<C_BaseEntity> m_hEnvSky; // 0x4bc	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x110
+// Has VTable
+class CFireOverlay : public CGlowOverlay
 {
 public:
-	CUtlSymbolLarge m_EventName; // 0x70	
+	C_FireSmoke* m_pOwner; // 0xd0	
+	Vector m_vBaseColors[4]; // 0xd8	
+	float m_flScale; // 0x108	
+	int32_t m_nGUID; // 0x10c	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x78
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Inflow_GraphHook : public CPulseCell_Inflow_BaseEntrypoint
+// Size: 0x20
+class CGlowSprite
 {
 public:
-	CUtlSymbolLarge m_HookName; // 0x70	
+	Vector m_vColor; // 0x0	
+	float m_flHorzSize; // 0xc	
+	float m_flVertSize; // 0x10	
+private:
+	[[maybe_unused]] uint8_t __pad0014[0x4]; // 0x14
+public:
+	CStrongHandle<InfoForResourceTypeIMaterial2> m_hMaterial; // 0x18	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x14
+// Has Trivial Destructor
+class CInterpolatedValue
+{
+public:
+	float m_flStartTime; // 0x0	
+	float m_flEndTime; // 0x4	
+	float m_flStartValue; // 0x8	
+	float m_flEndValue; // 0xc	
+	int32_t m_nInterpType; // 0x10	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x30
+class CPlayerSprayDecalRenderHelper
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x30]; // 0x0
+public:
+	// No schema binary for binding
+};
+
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
 // Size: 0x98
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Inflow_EntOutputHandler : public CPulseCell_Inflow_BaseEntrypoint
+class C_CSGO_PreviewModel_GraphController : public CAnimGraphControllerBase
 {
 public:
-	CUtlSymbolLarge m_SourceEntity; // 0x70	
-	CUtlSymbolLarge m_SourceOutput; // 0x78	
-	CUtlSymbolLarge m_TargetInput; // 0x80	
-	CPulseValueFullType m_ExpectedParamType; // 0x88	
+	CAnimGraphParamOptionalRef<char*> m_pszCharacterMode; // 0x18	
+	CAnimGraphParamOptionalRef<char*> m_pszWeaponState; // 0x38	
+	CAnimGraphParamOptionalRef<char*> m_pszWeaponType; // 0x58	
+	CAnimGraphParamOptionalRef<char*> m_pszEndOfMatchCelebration; // 0x78	
+	
+	// Static fields:
+	static uint32_t &Get_s_nControllerTypeID(){return *reinterpret_cast<uint32_t*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("C_CSGO_PreviewModel_GraphController")->m_static_fields[0]->m_instance);};
+	static bool &Get_s_bSchemaTest(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("C_CSGO_PreviewModel_GraphController")->m_static_fields[1]->m_instance);};
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x48
+// Size: 0x108
+// Has VTable
+class C_CSGO_PreviewPlayer_GraphController : public CAnimGraphControllerBase
+{
+public:
+	CAnimGraphParamOptionalRef<char*> m_pszCharacterMode; // 0x18	
+	CAnimGraphParamOptionalRef<char*> m_pszTeamPreviewVariant; // 0x38	
+	CAnimGraphParamOptionalRef<char*> m_pszTeamPreviewPosition; // 0x58	
+	CAnimGraphParamOptionalRef<char*> m_pszEndOfMatchCelebration; // 0x78	
+	CAnimGraphParamOptionalRef<int32> m_nTeamPreviewRandom; // 0x98	
+	CAnimGraphParamOptionalRef<char*> m_pszWeaponState; // 0xb0	
+	CAnimGraphParamOptionalRef<char*> m_pszWeaponType; // 0xd0	
+	CAnimGraphParamOptionalRef<bool> m_bCT; // 0xf0	
+	
+	// Static fields:
+	static uint32_t &Get_s_nControllerTypeID(){return *reinterpret_cast<uint32_t*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("C_CSGO_PreviewPlayer_GraphController")->m_static_fields[0]->m_instance);};
+	static bool &Get_s_bSchemaTest(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("C_CSGO_PreviewPlayer_GraphController")->m_static_fields[1]->m_instance);};
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x98
+class C_CommandContext
+{
+public:
+	bool needsprocessing; // 0x0	
+	int32_t command_number; // 0x90	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x8
 // Has VTable
 // Is Abstract
-// 
-// MGetKV3ClassDefaults
-class CPulseCell_BaseYieldingInflow : public CPulseCell_BaseFlow
+class C_GameRules
 {
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
 public:
+	// No schema binary for binding
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x48
+// Size: 0xb0
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-class CPulseCell_BaseValue : public CPulseCell_Base
+class C_IronSightController
 {
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x10]; // 0x0
 public:
+	bool m_bIronSightAvailable; // 0x10	
+private:
+	[[maybe_unused]] uint8_t __pad0011[0x3]; // 0x11
+public:
+	float m_flIronSightAmount; // 0x14	
+	float m_flIronSightAmountGained; // 0x18	
+	float m_flIronSightAmountBiased; // 0x1c	
+	float m_flIronSightAmount_Interpolated; // 0x20	
+	float m_flIronSightAmountGained_Interpolated; // 0x24	
+	float m_flIronSightAmountBiased_Interpolated; // 0x28	
+	float m_flInterpolationLastUpdated; // 0x2c	
+	QAngle m_angDeltaAverage[8]; // 0x30	
+	QAngle m_angViewLast; // 0x90	
+	Vector2D m_vecDotCoords; // 0x9c	
+	float m_flDotBlur; // 0xa4	
+	float m_flSpeedRatio; // 0xa8	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x50
+// Size: 0xf8
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Step_PublicOutput : public CPulseCell_BaseFlow
+class C_LightGlowOverlay : public CGlowOverlay
 {
 public:
-	PulseRuntimeOutputIndex_t m_OutputIndex; // 0x48	
+	Vector m_vecOrigin; // 0xd0	
+	Vector m_vecDirection; // 0xdc	
+	int32_t m_nMinDist; // 0xe8	
+	int32_t m_nMaxDist; // 0xec	
+	int32_t m_nOuterMaxDist; // 0xf0	
+	bool m_bOneSided; // 0xf4	
+	bool m_bModulateByDot; // 0xf5	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x58
+// Size: 0x8
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Inflow_Yield : public CPulseCell_BaseYieldingInflow
+class C_MultiplayRules : public C_GameRules
 {
 public:
-	CPulse_ResumePoint m_UnyieldResume; // 0x48	
+	// No schema binary for binding
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x58
+// Size: 0x8
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Wait"
-// MPropertyDescription "Causes each execution cursor to pause at this node for a fixed period of time. Each cursor will wake up and resume execution when the time expires, unless aborted or early-woken."
-// MPulseEditorHeaderIcon
-class CPulseCell_Inflow_Wait : public CPulseCell_BaseYieldingInflow
+class C_SingleplayRules : public C_GameRules
 {
 public:
-	CPulse_ResumePoint m_WakeResume; // 0x48	
+	// No schema binary for binding
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x70
+// Size: 0xd8
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Outflow_StringSwitch : public CPulseCell_BaseFlow
+class C_SunGlowOverlay : public CGlowOverlay
 {
 public:
-	CPulse_OutflowConnection m_DefaultCaseOutflow; // 0x48	
-	CUtlVector<CPulse_OutflowConnection> m_CaseOutflows; // 0x58	
+	bool m_bModulateByDot; // 0xd0	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x70
+// Size: 0x8
 // Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Outflow_IntSwitch : public CPulseCell_BaseFlow
+class C_TeamplayRules : public C_MultiplayRules
 {
 public:
-	CPulse_OutflowConnection m_DefaultCaseOutflow; // 0x48	
-	CUtlVector<CPulse_OutflowConnection> m_CaseOutflows; // 0x58	
+	// No schema binary for binding
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x60
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Outflow_CycleOrdered : public CPulseCell_BaseFlow
-{
-public:
-	CUtlVector<CPulse_OutflowConnection> m_Outputs; // 0x48	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-struct CPulseCell_Outflow_CycleOrdered__InstanceState_t
-{
-public:
-	int32_t m_nNextIndex; // 0x0	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x60
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Outflow_CycleRandom : public CPulseCell_BaseFlow
-{
-public:
-	CUtlVector<CPulse_OutflowConnection> m_Outputs; // 0x48	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x60
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Outflow_CycleShuffled : public CPulseCell_BaseFlow
-{
-public:
-	CUtlVector<CPulse_OutflowConnection> m_Outputs; // 0x48	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
 // Size: 0x28
 // 
 // MGetKV3ClassDefaults
-struct CPulseCell_Outflow_CycleShuffled__InstanceState_t
+// MPropertyElementNameFn
+struct CompMatMutatorCondition_t
 {
 public:
-	CUtlVectorFixedGrowable<uint8> m_Shuffle; // 0x0	
-	int32_t m_nNextShuffle; // 0x20	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Condition"
+	CompMatPropertyMutatorConditionType_t m_nMutatorCondition; // 0x0	
+	// MPropertyFriendlyName "Container Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strMutatorConditionContainerName; // 0x8	
+	// MPropertyFriendlyName "Variable Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strMutatorConditionContainerVarName; // 0x10	
+	// MPropertyFriendlyName "Variable Value"
+	// MPropertyAttrStateCallback
+	CUtlString m_strMutatorConditionContainerVarValue; // 0x18	
+	// MPropertyFriendlyName "Pass when True"
+	bool m_bPassWhenTrue; // 0x20	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x68
-// Has VTable
+// Size: 0x270
 // 
 // MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "[Test] Random Yes/No Outflow"
-// MPropertyDescription "Test node that randomly picks between two outflows."
-class CPulseCell_Outflow_TestRandomYesNo : public CPulseCell_BaseFlow
+// MPropertyElementNameFn
+struct CompositeMaterialInputLooseVariable_t
 {
 public:
-	// MPropertyFriendlyName "Yes"
-	// MPropertyDescription "Randomly taken half of the time"
-	CPulse_OutflowConnection m_Yes; // 0x48	
-	// MPropertyFriendlyName "No"
-	// MPropertyDescription "Randomly taken half of the time"
-	CPulse_OutflowConnection m_No; // 0x58	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x68
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "[Test] Explicit Yes/No Outflow"
-// MPropertyDescription "Test node that picks between two outflows as specified in the test domain."
-class CPulseCell_Outflow_TestExplicitYesNo : public CPulseCell_BaseFlow
-{
-public:
-	// MPropertyFriendlyName "Yes"
-	CPulse_OutflowConnection m_Yes; // 0x48	
-	// MPropertyFriendlyName "No"
-	CPulse_OutflowConnection m_No; // 0x58	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "[Test] Int Value 50"
-// MPropertyDescription "Test node that just generates the integer 50. Nothing to see here!"
-class CPulseCell_Value_TestValue50 : public CPulseCell_BaseValue
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Random Integer"
-// MPropertyDescription "Generate a random integer between min and max (inclusive)"
-// MPulseEditorHeaderIcon
-class CPulseCell_Value_RandomInt : public CPulseCell_BaseValue
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Step_DebugLog : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x80
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Step_CallExternalMethod : public CPulseCell_BaseYieldingInflow
-{
-public:
-	CUtlSymbolLarge m_MethodName; // 0x48	
-	CUtlVector<CPulseRuntimeMethodArg> m_ExpectedArgs; // 0x50	
-	PulseMethodCallMode_t m_nAsyncCallMode; // 0x68	
+	// MPropertyFriendlyName "Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strName; // 0x0	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Expose Externally"
+	bool m_bExposeExternally; // 0x8	
 private:
-	[[maybe_unused]] uint8_t __pad006c[0x4]; // 0x6c
+	[[maybe_unused]] uint8_t __pad0009[0x7]; // 0x9
 public:
-	CPulse_ResumePoint m_OnFinished; // 0x70	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x88
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPulseCellWithCustomDocNode
-class CPulseCell_Timeline : public CPulseCell_BaseYieldingInflow
-{
-public:
-	CUtlVector<CPulseCell_Timeline::TimelineEvent_t> m_TimelineEvents; // 0x48	
-	bool m_bWaitForChildOutflows; // 0x60	
+	// MPropertyFriendlyName "Exposed Friendly Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strExposedFriendlyName; // 0x10	
+	// MPropertyFriendlyName "Exposed Friendly Group"
+	// MPropertyAttrStateCallback
+	CUtlString m_strExposedFriendlyGroupName; // 0x18	
+	// MPropertyFriendlyName "Exposed Fixed Range"
+	// MPropertyAttrStateCallback
+	bool m_bExposedVariableIsFixedRange; // 0x20	
 private:
-	[[maybe_unused]] uint8_t __pad0061[0x7]; // 0x61
+	[[maybe_unused]] uint8_t __pad0021[0x7]; // 0x21
 public:
-	CPulse_ResumePoint m_OnFinished; // 0x68	
-	CPulse_ResumePoint m_OnCanceled; // 0x78	
-	
-	// Static fields:
-	static char* &Get_m_pTagName(){return *reinterpret_cast<char**>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("CPulseCell_Timeline")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x18
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-struct CPulseCell_Timeline__TimelineEvent_t
-{
-public:
-	float m_flTimeFromPrevious; // 0x0	
-	bool m_bPauseForPreviousEvents; // 0x4	
-	bool m_bCallModeSync; // 0x5	
+	// MPropertyFriendlyName "Exposed SetVisible When True"
+	// MPropertyAttrStateCallback
+	CUtlString m_strExposedVisibleWhenTrue; // 0x28	
+	// MPropertyFriendlyName "Exposed SetHidden When True"
+	// MPropertyAttrStateCallback
+	CUtlString m_strExposedHiddenWhenTrue; // 0x30	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Type"
+	CompositeMaterialInputLooseVariableType_t m_nVariableType; // 0x38	
+	// MPropertyFriendlyName "Value"
+	// MPropertyAttrStateCallback
+	bool m_bValueBoolean; // 0x3c	
 private:
-	[[maybe_unused]] uint8_t __pad0006[0x2]; // 0x6
+	[[maybe_unused]] uint8_t __pad003d[0x3]; // 0x3d
 public:
-	CPulse_OutflowConnection m_EventOutflow; // 0x8	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x4
-// Has Trivial Destructor
-// 
-// MIsBoxedIntegerType
-struct PulseTestEHandle_t
-{
-public:
-	uint32_t m_Value; // 0x0	
-	
-	// Static fields:
-	static bool &Get_IS_TYPESAFE_INTEGER(){return *reinterpret_cast<bool*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("PulseTestEHandle_t")->m_static_fields[0]->m_instance);};
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x30
-struct FakeEntity_t
-{
-public:
-	PulseTestEHandle_t m_nHandle; // 0x0	
-	CUtlString m_Name; // 0x8	
-	CUtlString m_Class; // 0x10	
-	bool m_bDestroyed; // 0x18	
+	// MPropertyFriendlyName "X Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0 255"
+	int32_t m_nValueIntX; // 0x40	
+	// MPropertyFriendlyName "Y Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0 255"
+	int32_t m_nValueIntY; // 0x44	
+	// MPropertyFriendlyName "Z Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0 255"
+	int32_t m_nValueIntZ; // 0x48	
+	// MPropertyFriendlyName "W Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0 255"
+	int32_t m_nValueIntW; // 0x4c	
+	// MPropertyFriendlyName "Specify Min/Max"
+	// MPropertyAttrStateCallback
+	bool m_bHasFloatBounds; // 0x50	
 private:
-	[[maybe_unused]] uint8_t __pad0019[0x7]; // 0x19
+	[[maybe_unused]] uint8_t __pad0051[0x3]; // 0x51
 public:
-	CPulseGraphInstance_TestDomain* m_pAssociatedGraphInstance; // 0x20	
-	bool m_bFuncWasCalled; // 0x28	
+	// MPropertyFriendlyName "X Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0.0 1.0"
+	float m_flValueFloatX; // 0x54	
+	// MPropertyFriendlyName "X Min"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatX_Min; // 0x58	
+	// MPropertyFriendlyName "X Max"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatX_Max; // 0x5c	
+	// MPropertyFriendlyName "Y Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0.0 1.0"
+	float m_flValueFloatY; // 0x60	
+	// MPropertyFriendlyName "Y Min"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatY_Min; // 0x64	
+	// MPropertyFriendlyName "Y Max"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatY_Max; // 0x68	
+	// MPropertyFriendlyName "Z Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0.0 1.0"
+	float m_flValueFloatZ; // 0x6c	
+	// MPropertyFriendlyName "Z Min"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatZ_Min; // 0x70	
+	// MPropertyFriendlyName "Z Max"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatZ_Max; // 0x74	
+	// MPropertyFriendlyName "W Value"
+	// MPropertyAttrStateCallback
+	// MPropertyAttributeRange "0.0 1.0"
+	float m_flValueFloatW; // 0x78	
+	// MPropertyFriendlyName "W Min"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatW_Min; // 0x7c	
+	// MPropertyFriendlyName "W Max"
+	// MPropertyAttrStateCallback
+	float m_flValueFloatW_Max; // 0x80	
+	// MPropertyFriendlyName "Value"
+	// MPropertyAttrStateCallback
+	Color m_cValueColor4; // 0x84	
+	// MPropertyFriendlyName "Value"
+	// MPropertyAttrStateCallback
+	CompositeMaterialVarSystemVar_t m_nValueSystemVar; // 0x88	
 private:
-	[[maybe_unused]] uint8_t __pad0029[0x3]; // 0x29
+	[[maybe_unused]] uint8_t __pad008c[0x4]; // 0x8c
 public:
-	float m_fValue; // 0x2c	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x100
-// Has VTable
-// 
-// MPulseInstanceDomainInfo
-// MPulseLibraryBindings
-// MPulseDomainOptInFeatureTag
-class CPulseGraphInstance_TestDomain : public CBasePulseGraphInstance
-{
-public:
-	bool m_bIsRunningUnitTests; // 0xd8	
-	bool m_bExplicitTimeStepping; // 0xd9	
-	bool m_bExpectingToDestroyWithYieldedCursors; // 0xda	
+	// MPropertyFriendlyName "Material"
+	// MPropertyAttributeEditor "AssetBrowse( vmat )"
+	// MPropertyAttrStateCallback
+	CResourceName m_strResourceMaterial; // 0x90	
+	// MPropertyFriendlyName "Texture"
+	// MPropertyAttributeEditor "AssetBrowse( jpg, png, psd, tga )"
+	// MPropertyAttrStateCallback
+	CUtlString m_strTextureContentAssetPath; // 0x170	
+	// MPropertyHideField
+	CResourceName m_strTextureRuntimeResourcePath; // 0x178	
+	// MPropertyHideField
+	CUtlString m_strTextureCompilationVtexTemplate; // 0x258	
+	// MPropertyFriendlyName "Texture Type"
+	// MPropertyAttrStateCallback
+	CompositeMaterialInputTextureType_t m_nTextureType; // 0x260	
 private:
-	[[maybe_unused]] uint8_t __pad00db[0x1]; // 0xdb
+	[[maybe_unused]] uint8_t __pad0264[0x4]; // 0x264
 public:
-	int32_t m_nNextValidateIndex; // 0xdc	
-	CUtlVector<CUtlString> m_Tracepoints; // 0xe0	
-	bool m_bTestYesOrNoPath; // 0xf8	
-	
-	// Static fields:
-	static double &Get_s_flExplicitCurTime(){return *reinterpret_cast<double*>(interfaces::g_schema->FindTypeScopeForModule("pulse_system.dll")->FindDeclaredClass("CPulseGraphInstance_TestDomain")->m_static_fields[0]->m_instance);};
+	// MPropertyFriendlyName "String"
+	// MPropertyAttrStateCallback
+	CUtlString m_strString; // 0x268	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Tracepoint"
-class CPulseCell_Step_TestDomainTracepoint : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Spawn Fake Entity"
-class CPulseCell_Step_TestDomainCreateFakeEntity : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Destroy Fake Entity"
-class CPulseCell_Step_TestDomainDestroyFakeEntity : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x50
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Fake Ent-Fire"
-// MPulseEditorHeaderText
-class CPulseCell_Step_TestDomainEntFire : public CPulseCell_BaseFlow
-{
-public:
-	CUtlString m_Input; // 0x48	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Get Fake Entity Name"
-class CPulseCell_Val_TestDomainGetEntityName : public CPulseCell_BaseValue
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Find Fake Entity"
-class CPulseCell_Val_TestDomainFindEntityByName : public CPulseCell_BaseValue
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x78
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-class CPulseCell_TestWaitWithCursorState : public CPulseCell_BaseYieldingInflow
-{
-public:
-	// MPulseCellOutflow_IsDefault
-	CPulse_ResumePoint m_WakeResume; // 0x48	
-	CPulse_ResumePoint m_WakeCancel; // 0x58	
-	CPulse_ResumePoint m_WakeFail; // 0x68	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 4
-// Size: 0x8
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-struct CPulseCell_TestWaitWithCursorState__CursorState_t
-{
-public:
-	float flWaitValue; // 0x0	
-	bool bFailOnCancel; // 0x4	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x170
-// Has VTable
-// 
-// MPulseLibraryBindings
-// MPulseInternal_IsCursor
-class CTestDomainDerived_Cursor : public CPulseExecCursor
-{
-public:
-	int32_t m_nCursorValueA; // 0x168	
-	int32_t m_nCursorValueB; // 0x16c	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x108
-// Has VTable
-// 
-// MPulseInstanceDomainInfo
-// MPulseLibraryBindings
-// MPulseDomainHiddenInTool
-class CPulseGraphInstance_TestDomain_Derived : public CPulseGraphInstance_TestDomain
-{
-public:
-	int32_t m_nInstanceValueX; // 0x100	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MPulseLibraryBindings
-// MPropertyDescription "Test functions for the derived test domain."
-class CPulseTestFuncs_DerivedDomain
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-class CPulseCell_Test_NoInflow : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-class CPulseCell_Test_MultiInflow_WithDefault : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x48
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-class CPulseCell_Test_MultiInflow_NoDefault : public CPulseCell_BaseFlow
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0x180
-// Has VTable
-// 
-// MPulseLibraryBindings
-// MPulseInternal_IsCursor
-class CPulseTurtleGraphicsCursor : public CPulseExecCursor
-{
-public:
-	Color m_Color; // 0x168	
-	Vector2D m_vPos; // 0x16c	
-	float m_flHeadingDeg; // 0x174	
-	bool m_bPenUp; // 0x178	
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_runtime_lib')
-// Alignment: 8
-// Size: 0xf8
-// Has VTable
-// 
-// MPulseInstanceDomainInfo
-// MPulseLibraryBindings
-class CPulseGraphInstance_TurtleGraphics : public CBasePulseGraphInstance
-{
-public:
-};
-
-// Registered binary: pulse_system.dll (project 'pulse_system')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
 // Size: 0x60
-// Has VTable
 // 
 // MGetKV3ClassDefaults
-class CPulseCell_WaitForCursorsWithTagBase : public CPulseCell_BaseYieldingInflow
+// MPropertyElementNameFn
+struct CompositeMaterialAssemblyProcedure_t
 {
 public:
-	// MPropertyDescription "Any extra waiting cursors will be terminated. -1 for infinite cursors."
-	int32_t m_nCursorsAllowedToWait; // 0x48	
-private:
-	[[maybe_unused]] uint8_t __pad004c[0x4]; // 0x4c
-public:
-	CPulse_ResumePoint m_WaitComplete; // 0x50	
+	// MPropertyFriendlyName "Includes"
+	// MPropertyAttributeEditor "AssetBrowse( vcompmat )"
+	CUtlVector<CResourceName> m_vecCompMatIncludes; // 0x0	
+	// MPropertyFriendlyName "Match Filters"
+	CUtlVector<CompositeMaterialMatchFilter_t> m_vecMatchFilters; // 0x18	
+	// MPropertyFriendlyName "Composite Inputs"
+	CUtlVector<CompositeMaterialInputContainer_t> m_vecCompositeInputContainers; // 0x30	
+	// MPropertyFriendlyName "Property Mutators"
+	CUtlVector<CompMatPropertyMutator_t> m_vecPropertyMutators; // 0x48	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_system')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x68
-// Has VTable
+// Size: 0x218
 // 
 // MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Wait For Cursors With Tag"
-// MPropertyDescription "Causes this execution cursor to wait for the completion of other cursors with the given tag. Can optionally kill the tag while waiting."
-// MPulseEditorHeaderIcon
-class CPulseCell_WaitForCursorsWithTag : public CPulseCell_WaitForCursorsWithTagBase
+struct CompositeMaterialEditorPoint_t
 {
 public:
-	// MPropertyDescription "Apply the same tag we're waiting on to the resulting cursor upon wait completion. Can be used to wait on our result cursor with the same tag."
-	bool m_bTagSelfWhenComplete; // 0x60	
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Target Model"
+	// MPropertyAttributeEditor "AssetBrowse( vmdl )"
+	CResourceName m_ModelName; // 0x0	
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Animation"
+	int32_t m_nSequenceIndex; // 0xe0	
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Animation Cycle"
+	// MPropertyAttributeRange "0.0 1.0"
+	float m_flCycle; // 0xe4	
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Model Preview State"
+	// MPropertyAttributeEditor "CompositeMaterialUserModelStateSetting"
+	KeyValues3 m_KVModelStateChoices; // 0xe8	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Enable Child Model"
+	bool m_bEnableChildModel; // 0xf8	
 private:
-	[[maybe_unused]] uint8_t __pad0061[0x3]; // 0x61
+	[[maybe_unused]] uint8_t __pad00f9[0x7]; // 0xf9
 public:
-	// MPropertyDescription "When we start waiting, how should we handle existing cursors?"
-	PulseCursorCancelPriority_t m_nDesiredKillPriority; // 0x64	
+	// MPropertyGroupName "Preview Model"
+	// MPropertyFriendlyName "Child Model"
+	// MPropertyAttributeEditor "AssetBrowse( vmdl )"
+	// MPropertyAttrStateCallback
+	CResourceName m_ChildModelName; // 0x100	
+	// MPropertyGroupName "Composite Material Assembly"
+	// MPropertyFriendlyName "Composite Material Assembly Procedures"
+	CUtlVector<CompositeMaterialAssemblyProcedure_t> m_vecCompositeMaterialAssemblyProcedures; // 0x1e0	
+	// MPropertyFriendlyName "Generated Composite Materials"
+	CUtlVector<CompositeMaterial_t> m_vecCompositeMaterials; // 0x1f8	
 };
 
-// Registered binary: pulse_system.dll (project 'pulse_system')
+// Registered binary: client.dll (project 'client')
 // Alignment: 8
-// Size: 0x68
-// Has VTable
+// Size: 0x138
 // 
 // MGetKV3ClassDefaults
-// MCellForDomain
-// MPulseCellMethodBindings
-// MPropertyFriendlyName "Cursor Queue"
-// MPropertyDescription "Causes each execution cursor to wait for the completion of all prior cursors that have visited this node. Use this to safely support multiple triggers to areas of the graph that take time to complete."
-// MPulseEditorHeaderIcon
-class CPulseCell_CursorQueue : public CPulseCell_WaitForCursorsWithTagBase
+// MPropertyElementNameFn
+struct CompositeMaterialInputContainer_t
 {
 public:
-	// MPropertyDescription "Any cursors above this count will wait, up to the limit."
-	int32_t m_nCursorsAllowedToRunParallel; // 0x60	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Enabled"
+	bool m_bEnabled; // 0x0	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Input Container Source"
+	// MPropertyAttrStateCallback
+	CompositeMaterialInputContainerSourceType_t m_nCompositeMaterialInputContainerSourceType; // 0x4	
+	// MPropertyFriendlyName "Specific Material"
+	// MPropertyAttributeEditor "AssetBrowse( vmat )"
+	// MPropertyAttrStateCallback
+	CResourceName m_strSpecificContainerMaterial; // 0x8	
+	// MPropertyFriendlyName "Attribute Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strAttrName; // 0xe8	
+	// MPropertyFriendlyName "Alias"
+	// MPropertyAttrStateCallback
+	CUtlString m_strAlias; // 0xf0	
+	// MPropertyFriendlyName "Variables"
+	// MPropertyAttrStateCallback
+	CUtlVector<CompositeMaterialInputLooseVariable_t> m_vecLooseVariables; // 0xf8	
+	// MPropertyFriendlyName "Attribute Name"
+	// MPropertyAttrStateCallback
+	CUtlString m_strAttrNameForVar; // 0x110	
+	// MPropertyFriendlyName "Expose Externally"
+	// MPropertyAttrStateCallback
+	bool m_bExposeExternally; // 0x118	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x368
+// 
+// MGetKV3ClassDefaults
+// MPropertyElementNameFn
+struct CompMatPropertyMutator_t
+{
+public:
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Enabled"
+	bool m_bEnabled; // 0x0	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Mutator Command"
+	// MPropertyAttrStateCallback
+	CompMatPropertyMutatorType_t m_nMutatorCommandType; // 0x4	
+	// MPropertyFriendlyName "Container to Init With"
+	// MPropertyAttrStateCallback
+	CUtlString m_strInitWith_Container; // 0x8	
+	// MPropertyFriendlyName "Input Container"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyProperty_InputContainerSrc; // 0x10	
+	// MPropertyFriendlyName "Input Container Property"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyProperty_InputContainerProperty; // 0x18	
+	// MPropertyFriendlyName "Target Property"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyProperty_TargetProperty; // 0x20	
+	// MPropertyFriendlyName "Seed Input Var"
+	// MPropertyAttrStateCallback
+	CUtlString m_strRandomRollInputVars_SeedInputVar; // 0x28	
+	// MPropertyFriendlyName "Input Vars"
+	// MPropertyAttrStateCallback
+	CUtlVector<CUtlString> m_vecRandomRollInputVars_InputVarsToRoll; // 0x30	
+	// MPropertyFriendlyName "Input Container"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyMatchingKeys_InputContainerSrc; // 0x48	
+	// MPropertyFriendlyName "Input Container"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyKeysWithSuffix_InputContainerSrc; // 0x50	
+	// MPropertyFriendlyName "Find Suffix"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyKeysWithSuffix_FindSuffix; // 0x58	
+	// MPropertyFriendlyName "Replace Suffix"
+	// MPropertyAttrStateCallback
+	CUtlString m_strCopyKeysWithSuffix_ReplaceSuffix; // 0x60	
+	// MPropertyFriendlyName "Value"
+	// MPropertyAttrStateCallback
+	CompositeMaterialInputLooseVariable_t m_nSetValue_Value; // 0x68	
+	// MPropertyFriendlyName "Target Texture Param"
+	// MPropertyAttrStateCallback
+	CUtlString m_strGenerateTexture_TargetParam; // 0x2d8	
+	// MPropertyFriendlyName "Initial Container"
+	// MPropertyAttrStateCallback
+	CUtlString m_strGenerateTexture_InitialContainer; // 0x2e0	
+	// MPropertyFriendlyName "Resolution"
+	// MPropertyAttrStateCallback
+	int32_t m_nResolution; // 0x2e8	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Scratch Target"
+	// MPropertyAttrStateCallback
+	bool m_bIsScratchTarget; // 0x2ec	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Splat Debug info on Texture"
+	// MPropertyAttrStateCallback
+	bool m_bSplatDebugInfo; // 0x2ed	
+	// MPropertyAutoRebuildOnChange
+	// MPropertyFriendlyName "Capture in RenderDoc"
+	// MPropertyAttrStateCallback
+	bool m_bCaptureInRenderDoc; // 0x2ee	
+private:
+	[[maybe_unused]] uint8_t __pad02ef[0x1]; // 0x2ef
+public:
+	// MPropertyFriendlyName "Texture Generation Instructions"
+	// MPropertyAttrStateCallback
+	CUtlVector<CompMatPropertyMutator_t> m_vecTexGenInstructions; // 0x2f0	
+	// MPropertyFriendlyName "Mutators"
+	// MPropertyAttrStateCallback
+	CUtlVector<CompMatPropertyMutator_t> m_vecConditionalMutators; // 0x308	
+	// MPropertyFriendlyName "Container to Pop"
+	// MPropertyAttrStateCallback
+	CUtlString m_strPopInputQueue_Container; // 0x320	
+	// MPropertyFriendlyName "Input Container"
+	// MPropertyAttrStateCallback
+	CUtlString m_strDrawText_InputContainerSrc; // 0x328	
+	// MPropertyFriendlyName "Input Container Property"
+	// MPropertyAttrStateCallback
+	CUtlString m_strDrawText_InputContainerProperty; // 0x330	
+	// MPropertyFriendlyName "Text Position"
+	// MPropertyAttrStateCallback
+	Vector2D m_vecDrawText_Position; // 0x338	
+	// MPropertyFriendlyName "Text Color"
+	// MPropertyAttrStateCallback
+	Color m_colDrawText_Color; // 0x340	
+private:
+	[[maybe_unused]] uint8_t __pad0344[0x4]; // 0x344
+public:
+	// MPropertyFriendlyName "Font"
+	// MPropertyAttrStateCallback
+	CUtlString m_strDrawText_Font; // 0x348	
+	// MPropertyFriendlyName "Conditions"
+	// MPropertyAttrStateCallback
+	CUtlVector<CompMatMutatorCondition_t> m_vecConditions; // 0x350	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x20
+// 
+// MGetKV3ClassDefaults
+// MPropertyElementNameFn
+struct CompositeMaterialMatchFilter_t
+{
+public:
+	// MPropertyFriendlyName "Match Type"
+	CompositeMaterialMatchFilterType_t m_nCompositeMaterialMatchFilterType; // 0x0	
+	// MPropertyFriendlyName "Name"
+	CUtlString m_strMatchFilter; // 0x8	
+	// MPropertyFriendlyName "Value"
+	// MPropertyAttrStateCallback
+	CUtlString m_strMatchValue; // 0x10	
+	// MPropertyFriendlyName "Pass when True"
+	bool m_bPassWhenTrue; // 0x18	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x60
+// 
+// MPropertyElementNameFn
+struct CompositeMaterial_t
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
+public:
+	// MPropertyGroupName "Target Material"
+	// MPropertyAttributeEditor "CompositeMaterialKVInspector"
+	KeyValues3 m_TargetKVs; // 0x8	
+	// MPropertyGroupName "Pre-Generated Output Material"
+	// MPropertyAttributeEditor "CompositeMaterialKVInspector"
+	KeyValues3 m_PreGenerationKVs; // 0x18	
+	// MPropertyGroupName "Generated Composite Material"
+	// MPropertyAttributeEditor "CompositeMaterialKVInspector"
+	KeyValues3 m_FinalKVs; // 0x28	
+private:
+	[[maybe_unused]] uint8_t __pad0038[0x8]; // 0x38
+public:
+	// MPropertyFriendlyName "Generated Textures"
+	CUtlVector<GeneratedTextureHandle_t> m_vecGeneratedTextures; // 0x40	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x50
+// 
+// MPropertyElementNameFn
+struct GeneratedTextureHandle_t
+{
+public:
+	// MPropertyFriendlyName "Generated Texture"
+	// MPropertyAttributeEditor "CompositeMaterialTextureViewer"
+	CUtlString m_strBitmapName; // 0x0	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x30
+// Has VTable
+// Has Trivial Destructor
+class CClientAlphaProperty : public IClientAlphaProperty
+{
+private:
+	[[maybe_unused]] uint8_t __pad0008[0x8]; // 0x8
+public:
+	uint8_t m_nRenderFX; // 0x10	
+	uint8_t m_nRenderMode; // 0x11	
+	struct 
+	{
+		uint8_t m_bAlphaOverride: 1; 		
+		uint8_t m_bShadowAlphaOverride: 1; 		
+		uint8_t m_nReserved: 6; 		
+		uint8_t __pad0: 8;
+	}; // 16 bits
+	uint8_t m_nAlpha; // 0x13	
+	uint16_t m_nDesyncOffset; // 0x14	
+	uint16_t m_nReserved2; // 0x16	
+	uint16_t m_nDistFadeStart; // 0x18	
+	uint16_t m_nDistFadeEnd; // 0x1a	
+	float m_flFadeScale; // 0x1c	
+	GameTime_t m_flRenderFxStartTime; // 0x20	
+	float m_flRenderFxDuration; // 0x24	
+};
+
+// Registered binary: client.dll (project 'client')
+// Alignment: 8
+// Size: 0x8
+// Has Trivial Destructor
+class TimedEvent
+{
+public:
+	float m_TimeBetweenEvents; // 0x0	
+	float m_fNextEvent; // 0x4	
 };
 
