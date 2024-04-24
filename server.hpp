@@ -12947,7 +12947,7 @@ public:
 private:
 	[[maybe_unused]] uint8_t __pad0041[0x3]; // 0x41
 public:
-	int32_t m_iAccountMoneyEarnedForNextRound; // 0x44	
+	int32_t m_iMoneyEarnedForNextRound; // 0x44	
 	// MNetworkEnable
 	int32_t m_iAccount; // 0x48	
 	// MNetworkEnable
@@ -15817,7 +15817,6 @@ public:
 	int32_t m_LegacyTeamNum; // 0x8b8	
 	
 	// Datamap fields:
-	// void CBuyZoneBuyZoneTouch; // 0x0
 	// void InputSetTeam_TerroristOnly; // 0x0
 	// void InputSetTeam_CTOnly; // 0x0
 	// void InputSetTeam_AllTeams; // 0x0
@@ -20419,9 +20418,7 @@ private:
 	[[maybe_unused]] uint8_t __pad0e15[0x3]; // 0xe15
 public:
 	uint32_t m_numQueuedMatchmakingAccounts; // 0xe18	
-private:
-	[[maybe_unused]] uint8_t __pad0e1c[0x4]; // 0xe1c
-public:
+	float m_fAvgPlayerRank; // 0xe1c	
 	char* m_pQueuedMatchmakingReservationString; // 0xe20	
 	uint32_t m_numTotalTournamentDrops; // 0xe28	
 	uint32_t m_numSpectatorsCountMax; // 0xe2c	

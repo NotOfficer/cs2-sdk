@@ -1,11 +1,11 @@
 {
-  "ClientVersion": "2000288",
-  "ServerVersion": "2000288",
-  "PatchVersion": "1.40.0.2",
+  "ClientVersion": "2000295",
+  "ServerVersion": "2000295",
+  "PatchVersion": "1.40.0.3",
   "ProductName": "cs2",
   "appID": "730",
   "ServerAppID": "2347773",
-  "SourceRevision": "8809129",
-  "VersionDate": "Apr 07 2024",
-  "VersionTime": "20:34:29"
+  "SourceRevision": "8838153",
+  "VersionDate": "Apr 22 2024",
+  "VersionTime": "17:13:32"
 }
