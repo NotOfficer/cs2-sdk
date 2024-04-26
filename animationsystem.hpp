@@ -2345,65 +2345,59 @@ public:
 
 // Registered binary: animationsystem.dll (project 'animgraphlib')
 // Alignment: 8
-// Size: 0x78
+// Size: 0x80
 // 
 // MGetKV3ClassDefaults
 class CAnimDemoCaptureSettings
 {
 public:
-	// MPropertyFriendlyName "Bone Chain Length Error Scaling Range"
+	// MPropertyFriendlyName "Rotation Error Range"
 	// MPropertyGroupName "+Spline Settings"
-	Vector2D m_rangeBoneChainLength; // 0x0	
-	// MPropertyFriendlyName "Max Rotation Error (Mapped Against Bone Chain Length)"
+	Vector2D m_vecErrorRangeSplineRotation; // 0x0	
+	// MPropertyFriendlyName "Translation Error Range"
 	// MPropertyGroupName "+Spline Settings"
-	Vector2D m_rangeMaxSplineErrorRotation; // 0x8	
-	// MPropertyFriendlyName "Max Translation Error"
+	Vector2D m_vecErrorRangeSplineTranslation; // 0x8	
+	// MPropertyFriendlyName "Scale Error Range"
 	// MPropertyGroupName "+Spline Settings"
-	float m_flMaxSplineErrorTranslation; // 0x10	
-	// MPropertyFriendlyName "Max Scale Error"
-	// MPropertyGroupName "+Spline Settings"
-	float m_flMaxSplineErrorScale; // 0x14	
+	Vector2D m_vecErrorRangeSplineScale; // 0x10	
 	// MPropertyFriendlyName "Max IK Rotation Error"
 	// MPropertyGroupName "+Spline Settings"
 	float m_flIkRotation_MaxSplineError; // 0x18	
 	// MPropertyFriendlyName "Max IK Translation Error"
 	// MPropertyGroupName "+Spline Settings"
 	float m_flIkTranslation_MaxSplineError; // 0x1c	
-	// MPropertyFriendlyName "Max Rotation Error"
+	// MPropertyFriendlyName "Rotation Error Range"
 	// MPropertyGroupName "+Quantization Settings"
-	float m_flMaxQuantizationErrorRotation; // 0x20	
-	// MPropertyFriendlyName "Max Translation Error"
+	Vector2D m_vecErrorRangeQuantizationRotation; // 0x20	
+	// MPropertyFriendlyName "Translation Error Range"
 	// MPropertyGroupName "+Quantization Settings"
-	float m_flMaxQuantizationErrorTranslation; // 0x24	
-	// MPropertyFriendlyName "Max Scale Error"
+	Vector2D m_vecErrorRangeQuantizationTranslation; // 0x28	
+	// MPropertyFriendlyName "Scale Error Range"
 	// MPropertyGroupName "+Quantization Settings"
-	float m_flMaxQuantizationErrorScale; // 0x28	
+	Vector2D m_vecErrorRangeQuantizationScale; // 0x30	
 	// MPropertyFriendlyName "Max IK Rotation Error"
 	// MPropertyGroupName "+Quantization Settings"
-	float m_flIkRotation_MaxQuantizationError; // 0x2c	
+	float m_flIkRotation_MaxQuantizationError; // 0x38	
 	// MPropertyFriendlyName "Max IK Translation Error"
 	// MPropertyGroupName "+Quantization Settings"
-	float m_flIkTranslation_MaxQuantizationError; // 0x30	
-private:
-	[[maybe_unused]] uint8_t __pad0034[0x4]; // 0x34
-public:
+	float m_flIkTranslation_MaxQuantizationError; // 0x3c	
 	// MPropertyFriendlyName "Base Sequence"
 	// MPropertyGroupName "+Base Pose"
 	// MPropertyAttributeChoiceName "Sequence"
-	CUtlString m_baseSequence; // 0x38	
+	CUtlString m_baseSequence; // 0x40	
 	// MPropertyFriendlyName "Base Sequence Frame"
 	// MPropertyGroupName "+Base Pose"
-	int32_t m_nBaseSequenceFrame; // 0x40	
+	int32_t m_nBaseSequenceFrame; // 0x48	
 	// MPropertyFriendlyName "Bone Selection Mode"
 	// MPropertyGroupName "+Bones"
 	// MPropertyAttrChangeCallback
-	EDemoBoneSelectionMode m_boneSelectionMode; // 0x44	
+	EDemoBoneSelectionMode m_boneSelectionMode; // 0x4c	
 	// MPropertyFriendlyName "Bones"
 	// MPropertyGroupName "+Bones"
 	// MPropertyAttrStateCallback
-	CUtlVector<BoneDemoCaptureSettings_t> m_bones; // 0x48	
+	CUtlVector<BoneDemoCaptureSettings_t> m_bones; // 0x50	
 	// MPropertyFriendlyName "IK Chains"
-	CUtlVector<IKDemoCaptureSettings_t> m_ikChains; // 0x60	
+	CUtlVector<IKDemoCaptureSettings_t> m_ikChains; // 0x68	
 };
 
 // Registered binary: animationsystem.dll (project 'animgraphlib')
@@ -4550,7 +4544,7 @@ public:
 
 // Registered binary: animationsystem.dll (project 'animgraphlib')
 // Alignment: 8
-// Size: 0x10
+// Size: 0x20
 // 
 // MGetKV3ClassDefaults
 struct BoneDemoCaptureSettings_t
@@ -4560,7 +4554,17 @@ public:
 	// MPropertyAttributeChoiceName "Bone"
 	CUtlString m_boneName; // 0x0	
 	// MPropertySuppressField
-	float m_flChainLength; // 0x8	
+	float m_flErrorSplineRotationMax; // 0x8	
+	// MPropertySuppressField
+	float m_flErrorSplineTranslationMax; // 0xc	
+	// MPropertySuppressField
+	float m_flErrorSplineScaleMax; // 0x10	
+	// MPropertySuppressField
+	float m_flErrorQuantizationRotationMax; // 0x14	
+	// MPropertySuppressField
+	float m_flErrorQuantizationTranslationMax; // 0x18	
+	// MPropertySuppressField
+	float m_flErrorQuantizationScaleMax; // 0x1c	
 };
 
 // Registered binary: animationsystem.dll (project 'modellib')
@@ -4828,7 +4832,7 @@ public:
 
 // Registered binary: animationsystem.dll (project 'animgraphlib')
 // Alignment: 8
-// Size: 0xa8
+// Size: 0xb0
 // Has VTable
 // 
 // MGetKV3ClassDefaults
