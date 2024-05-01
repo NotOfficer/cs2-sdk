@@ -19999,7 +19999,7 @@ public:
 
 // Registered binary: server.dll (project 'server')
 // Alignment: 8
-// Size: 0x15888
+// Size: 0x15880
 // Has VTable
 // 
 // MNetworkVarNames "bool m_bFreezePeriod"
@@ -20599,7 +20599,6 @@ private:
 	[[maybe_unused]] uint8_t __pad184d[0x400b]; // 0x184d
 public:
 	double m_flLastPerfSampleTime; // 0x5858	
-	bool m_bSkipNextServerPerfSample; // 0x5860	
 	
 	// Static fields:
 	static int64_t &Get_m_nMapCycleTimeStamp(){return *reinterpret_cast<int64_t*>(interfaces::g_schema->FindTypeScopeForModule("server.dll")->FindDeclaredClass("CCSGameRules")->m_static_fields[0]->m_instance);};
