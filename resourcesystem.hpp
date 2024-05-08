@@ -197,7 +197,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vanmgrphvnmgrapheconitem"
+// MResourceTypeForInfoType "vanmgrpheconitemvents"
 class InfoForResourceTypeIAnimGraphModelBinding
 {
 private:
@@ -504,7 +504,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vnmgrapheconitem"
+// MResourceTypeForInfoType "vnmgraphvanmgrpheconitemvents"
 class InfoForResourceTypeCNmGraph
 {
 private:
@@ -560,7 +560,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "econitem"
+// MResourceTypeForInfoType "econitemvents"
 class InfoForResourceTypeCCSGOEconItem
 {
 private:

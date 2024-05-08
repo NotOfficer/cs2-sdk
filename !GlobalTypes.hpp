@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: !GlobalTypes
-// Classes count: 1,363 (Allocated) | 1,363 (Unallocated)
+// Classes count: 1,362 (Allocated) | 1,362 (Unallocated)
 // Enums count: 318 (Allocated) | 318 (Unallocated)
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -13367,18 +13367,6 @@ public:
 	CUtlVector<CDirectPlaybackTagData> m_allTags; // 0x70	
 };
 
-// Registered binary: engine2.dll (project 'engine2')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Destructor
-struct EventClientPredictionPostNetupdate_t
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-	// No schema binary for binding
-};
-
 // Registered binary: server.dll (project 'server')
 // Alignment: 8
 // Size: 0x10
@@ -14543,7 +14531,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vanmgrphvnmgrapheconitem"
+// MResourceTypeForInfoType "vanmgrpheconitemvents"
 class InfoForResourceTypeIAnimGraphModelBinding
 {
 private:
@@ -21214,7 +21202,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "econitem"
+// MResourceTypeForInfoType "econitemvents"
 class InfoForResourceTypeCCSGOEconItem
 {
 private:
@@ -26844,7 +26832,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vnmgrapheconitem"
+// MResourceTypeForInfoType "vnmgraphvanmgrpheconitemvents"
 class InfoForResourceTypeCNmGraph
 {
 private:
