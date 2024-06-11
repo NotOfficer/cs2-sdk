@@ -4,7 +4,7 @@
 
 // /////////////////////////////////////////////////////////////
 // Binary: resourcesystem.dll
-// Classes count: 0 (Allocated) | 59 (Unallocated)
+// Classes count: 0 (Allocated) | 58 (Unallocated)
 // Enums count: 0 (Allocated) | 2 (Unallocated)
 // Created using source2gen - github.com/neverlosecc/source2gen
 // /////////////////////////////////////////////////////////////
@@ -197,7 +197,7 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vanmgrpheconitemvents"
+// MResourceTypeForInfoType "vanmgrpheconitemp"
 class InfoForResourceTypeIAnimGraphModelBinding
 {
 private:
@@ -504,34 +504,6 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "vnmgraphvanmgrpheconitemvents"
-class InfoForResourceTypeCNmGraph
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: resourcesystem.dll (project 'resourcesystem')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MResourceTypeForInfoType "vdacdefsvsvg"
-class InfoForResourceTypeCDACGameDefsData
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
-};
-
-// Registered binary: resourcesystem.dll (project 'resourcesystem')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
 // MResourceTypeForInfoType "vcss"
 class InfoForResourceTypeCPanoramaStyle
 {
@@ -560,8 +532,36 @@ public:
 // Has Trivial Constructor
 // Has Trivial Destructor
 // 
-// MResourceTypeForInfoType "econitemvents"
+// MResourceTypeForInfoType "vnmvar"
+class InfoForResourceTypeCNmGraphVariation
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
+public:
+};
+
+// Registered binary: resourcesystem.dll (project 'resourcesystem')
+// Alignment: 8
+// Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
+// 
+// MResourceTypeForInfoType "econitemp"
 class InfoForResourceTypeCCSGOEconItem
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
+public:
+};
+
+// Registered binary: resourcesystem.dll (project 'resourcesystem')
+// Alignment: 8
+// Size: 0x1
+// Has Trivial Constructor
+// Has Trivial Destructor
+// 
+// MResourceTypeForInfoType "vnmgraphvnmclip"
+class InfoForResourceTypeCNmGraphDefinition
 {
 private:
 	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
@@ -781,20 +781,6 @@ public:
 	uint8_t m_nNumComponents; // 0xe	
 	FuseVariableType_t m_eVarType; // 0xf	
 	FuseVariableAccess_t m_eAccess; // 0x10	
-};
-
-// Registered binary: resourcesystem.dll (project 'resourcesystem')
-// Alignment: 8
-// Size: 0x1
-// Has Trivial Constructor
-// Has Trivial Destructor
-// 
-// MResourceTypeForInfoType "vnmdset"
-class InfoForResourceTypeCNmGraphDataSet
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x1]; // 0x0
-public:
 };
 
 // Registered binary: resourcesystem.dll (project 'resourcesystem')

@@ -30,11 +30,110 @@ enum class ObjectTypeFlags_t : uint32_t
 	OBJECT_TYPE_STATIC_CUBE_MAP = 0x8000,
 };
 
+struct ChangeAccessorFieldPathIndex_t;
+struct CEntityIdentity;
+struct CScriptComponent;
 struct CRenderBufferBinding;
 struct AABB_t;
 struct BakedLightingInfo_t;
 struct WorldBuilderParams_t;
 struct VoxelVisBlockOffset_t;
+
+// Registered binary: worldrenderer.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x8
+// Has VTable
+// Is Abstract
+// Has Trivial Destructor
+class CEntityComponent
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
+public:
+	// No schema binary for binding
+};
+
+// Registered binary: worldrenderer.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x38
+// Has VTable
+class CScriptComponent : public CEntityComponent
+{
+private:
+	[[maybe_unused]] uint8_t __pad0008[0x28]; // 0x8
+public:
+	CUtlSymbolLarge m_scriptClassName; // 0x30	
+	
+	// Static fields:
+	static EntComponentInfo_t &Get_s_EntComponentInfo(){return *reinterpret_cast<EntComponentInfo_t*>(interfaces::g_schema->FindTypeScopeForModule("worldrenderer.dll")->FindDeclaredClass("CScriptComponent")->m_static_fields[0]->m_instance);};
+	static int32_t &Get_entity_component_error_class_decl_says_contained_but_impl_is_referenced(){return *reinterpret_cast<int32_t*>(interfaces::g_schema->FindTypeScopeForModule("worldrenderer.dll")->FindDeclaredClass("CScriptComponent")->m_static_fields[1]->m_instance);};
+};
+
+// Registered binary: worldrenderer.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x78
+// 
+// MNetworkVarNames "int32 m_nameStringableIndex"
+class CEntityIdentity
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x14]; // 0x0
+public:
+	// MNetworkEnable
+	// MNetworkChangeCallback "entityIdentityNameChanged"
+	int32_t m_nameStringableIndex; // 0x14	
+	CUtlSymbolLarge m_name; // 0x18	
+	CUtlSymbolLarge m_designerName; // 0x20	
+private:
+	[[maybe_unused]] uint8_t __pad0028[0x8]; // 0x28
+public:
+	uint32_t m_flags; // 0x30	
+private:
+	[[maybe_unused]] uint8_t __pad0034[0x4]; // 0x34
+public:
+	// MNetworkDisable
+	WorldGroupId_t m_worldGroupId; // 0x38	
+	uint32_t m_fDataObjectTypes; // 0x3c	
+	// MNetworkDisable
+	// MNetworkChangeAccessorFieldPathIndex
+	ChangeAccessorFieldPathIndex_t m_PathIndex; // 0x40	
+private:
+	[[maybe_unused]] uint8_t __pad0042[0x16]; // 0x42
+public:
+	CEntityIdentity* m_pPrev; // 0x58	
+	CEntityIdentity* m_pNext; // 0x60	
+	CEntityIdentity* m_pPrevByClass; // 0x68	
+	CEntityIdentity* m_pNextByClass; // 0x70	
+	
+	// Datamap fields:
+	// void m_pAttributes; // 0x48
+};
+
+// Registered binary: worldrenderer.dll (project 'entity2')
+// Alignment: 8
+// Size: 0x38
+// Has VTable
+// 
+// MNetworkVarNames "CEntityIdentity * m_pEntity"
+// MNetworkVarNames "CScriptComponent::Storage_t m_CScriptComponent"
+class CEntityInstance
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
+public:
+	// MNetworkDisable
+	CUtlSymbolLarge m_iszPrivateVScripts; // 0x8	
+	// MNetworkEnable
+	// MNetworkPriority "56"
+	CEntityIdentity* m_pEntity; // 0x10	
+private:
+	[[maybe_unused]] uint8_t __pad0018[0x10]; // 0x18
+public:
+	// MNetworkEnable
+	// MNetworkDisable
+	CScriptComponent* m_CScriptComponent; // 0x28	
+	bool m_bVisibleinPVS; // 0x30	
+};
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
 // Alignment: 8
@@ -68,7 +167,7 @@ public:
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
 // Alignment: 8
-// Size: 0x38
+// Size: 0x28
 // 
 // MGetKV3ClassDefaults
 struct AggregateLODSetup_t
@@ -76,7 +175,7 @@ struct AggregateLODSetup_t
 public:
 	Vector m_vLODOrigin; // 0x0	
 	float m_fMaxObjectScale; // 0xc	
-	CUtlVectorFixedGrowable<float32> m_fSwitchDistances; // 0x10	
+	CUtlVector<float32> m_fSwitchDistances; // 0x10	
 };
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
@@ -185,42 +284,6 @@ public:
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
 // Alignment: 8
-// Size: 0x20
-// Has Trivial Destructor
-// 
-// MGetKV3ClassDefaults
-struct WorldBuilderParams_t
-{
-public:
-	float m_flMinDrawVolumeSize; // 0x0	
-	bool m_bBuildBakedLighting; // 0x4	
-private:
-	[[maybe_unused]] uint8_t __pad0005[0x3]; // 0x5
-public:
-	Vector2D m_vLightmapUvScale; // 0x8	
-	uint64_t m_nCompileTimestamp; // 0x10	
-	uint64_t m_nCompileFingerprint; // 0x18	
-};
-
-// Registered binary: worldrenderer.dll (project 'worldrenderer')
-// Alignment: 8
-// Size: 0x40
-// Has VTable
-// 
-// MGetKV3ClassDefaults
-struct PermEntityLumpData_t
-{
-private:
-	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
-public:
-	CUtlString m_name; // 0x8	
-	CUtlString m_hammerUniqueId; // 0x10	
-	CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>> m_childLumps; // 0x18	
-	CUtlLeanVector<EntityKeyValueData_t> m_entityKeyValues; // 0x30	
-};
-
-// Registered binary: worldrenderer.dll (project 'worldrenderer')
-// Alignment: 8
 // Size: 0x30
 // 
 // MGetKV3ClassDefaults
@@ -231,10 +294,53 @@ public:
 	uint32_t m_nLightmapGameVersionNumber; // 0x4	
 	Vector2D m_vLightmapUvScale; // 0x8	
 	bool m_bHasLightmaps; // 0x10	
+	bool m_bBakedShadowsGamma20; // 0x11	
+	bool m_bCompressionEnabled; // 0x12	
+	uint8_t m_nChartPackIterations; // 0x13	
+	uint8_t m_nVradQuality; // 0x14	
 private:
-	[[maybe_unused]] uint8_t __pad0011[0x7]; // 0x11
+	[[maybe_unused]] uint8_t __pad0015[0x3]; // 0x15
 public:
 	CUtlVector<CStrongHandle<InfoForResourceTypeCTextureBase>> m_lightMaps; // 0x18	
+};
+
+// Registered binary: worldrenderer.dll (project 'worldrenderer')
+// Alignment: 8
+// Size: 0x38
+// Has VTable
+// 
+// MGetKV3ClassDefaults
+struct PermEntityLumpData_t
+{
+private:
+	[[maybe_unused]] uint8_t __pad0000[0x8]; // 0x0
+public:
+	CUtlString m_name; // 0x8	
+	CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>> m_childLumps; // 0x10	
+	CUtlLeanVector<EntityKeyValueData_t> m_entityKeyValues; // 0x28	
+};
+
+// Registered binary: worldrenderer.dll (project 'worldrenderer')
+// Alignment: 8
+// Size: 0x140
+// 
+// MGetKV3ClassDefaults
+struct WorldNode_t
+{
+public:
+	CUtlVector<SceneObject_t> m_sceneObjects; // 0x0	
+	CUtlVector<InfoOverlayData_t> m_infoOverlays; // 0x18	
+	CUtlVector<uint16> m_visClusterMembership; // 0x30	
+	CUtlVector<AggregateSceneObject_t> m_aggregateSceneObjects; // 0x48	
+	CUtlVector<ClutterSceneObject_t> m_clutterSceneObjects; // 0x60	
+	CUtlVector<ExtraVertexStreamOverride_t> m_extraVertexStreamOverrides; // 0x78	
+	CUtlVector<MaterialOverride_t> m_materialOverrides; // 0x90	
+	CUtlVector<WorldNodeOnDiskBufferData_t> m_extraVertexStreams; // 0xa8	
+	CUtlVector<CUtlString> m_layerNames; // 0xc0	
+	CUtlVector<uint8> m_sceneObjectLayerIndices; // 0xd8	
+	CUtlVector<uint8> m_overlayLayerIndices; // 0xf0	
+	CUtlString m_grassFileName; // 0x108	
+	BakedLightingInfo_t m_nodeLightingInfo; // 0x110	
 };
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
@@ -274,30 +380,20 @@ public:
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
 // Alignment: 8
-// Size: 0x140
+// Size: 0x48
 // 
 // MGetKV3ClassDefaults
-struct WorldNode_t
+struct WorldBuilderParams_t
 {
 public:
-	CUtlVector<SceneObject_t> m_sceneObjects; // 0x0	
-	CUtlVector<InfoOverlayData_t> m_infoOverlays; // 0x18	
-	CUtlVector<uint16> m_visClusterMembership; // 0x30	
-	CUtlVector<AggregateSceneObject_t> m_aggregateSceneObjects; // 0x48	
-	CUtlVector<ClutterSceneObject_t> m_clutterSceneObjects; // 0x60	
-	CUtlVector<ExtraVertexStreamOverride_t> m_extraVertexStreamOverrides; // 0x78	
-	CUtlVector<MaterialOverride_t> m_materialOverrides; // 0x90	
-	CUtlVector<WorldNodeOnDiskBufferData_t> m_extraVertexStreams; // 0xa8	
-	CUtlVector<CUtlString> m_layerNames; // 0xc0	
-	CUtlVector<uint8> m_sceneObjectLayerIndices; // 0xd8	
-	CUtlVector<uint8> m_overlayLayerIndices; // 0xf0	
-	CUtlString m_grassFileName; // 0x108	
-	// -> m_nLightmapVersionNumber - 0x110
-	// -> m_nLightmapGameVersionNumber - 0x114
-	// -> m_vLightmapUvScale - 0x118
-	// -> m_bHasLightmaps - 0x120
-	// -> m_lightMaps - 0x128
-	BakedLightingInfo_t m_nodeLightingInfo; // 0x110	
+	float m_flMinDrawVolumeSize; // 0x0	
+	bool m_bBuildBakedLighting; // 0x4	
+private:
+	[[maybe_unused]] uint8_t __pad0005[0x3]; // 0x5
+public:
+	BakedLightingInfo_t m_bakedLightingInfo; // 0x8	
+	uint64_t m_nCompileTimestamp; // 0x38	
+	uint64_t m_nCompileFingerprint; // 0x40	
 };
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
@@ -367,7 +463,7 @@ public:
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
 // Alignment: 8
-// Size: 0x80
+// Size: 0xa8
 // 
 // MGetKV3ClassDefaults
 struct World_t
@@ -375,18 +471,13 @@ struct World_t
 public:
 	// -> m_flMinDrawVolumeSize - 0x0
 	// -> m_bBuildBakedLighting - 0x4
-	// -> m_vLightmapUvScale - 0x8
-	// -> m_nCompileTimestamp - 0x10
-	// -> m_nCompileFingerprint - 0x18
+	// -> m_bakedLightingInfo - 0x8
+	// -> m_nCompileTimestamp - 0x38
+	// -> m_nCompileFingerprint - 0x40
 	WorldBuilderParams_t m_builderParams; // 0x0	
-	CUtlVector<NodeData_t> m_worldNodes; // 0x20	
-	// -> m_nLightmapVersionNumber - 0x38
-	// -> m_nLightmapGameVersionNumber - 0x3c
-	// -> m_vLightmapUvScale - 0x40
-	// -> m_bHasLightmaps - 0x48
-	// -> m_lightMaps - 0x50
-	BakedLightingInfo_t m_worldLightingInfo; // 0x38	
-	CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>> m_entityLumps; // 0x68	
+	CUtlVector<NodeData_t> m_worldNodes; // 0x48	
+	BakedLightingInfo_t m_worldLightingInfo; // 0x60	
+	CUtlVector<CStrongHandleCopyable<InfoForResourceTypeCEntityLump>> m_entityLumps; // 0x90	
 };
 
 // Registered binary: worldrenderer.dll (project 'worldrenderer')
